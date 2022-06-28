@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"name": "✨ root",
+		"path": "."
+	},
+	{
+		"name": "📦 @doraemon-ui/input",
+		"path": "packages/input"
+	}
+],
+  "settings": {}
+}
