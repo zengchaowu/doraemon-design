@@ -5,6 +5,7 @@
       <div class="seperator" ref="seperator">
         <div class="line" ref="line"></div>
       </div>
+    </div>
     <slot name="bottom" />
   </div>
 </template>
@@ -29,12 +30,12 @@ export default {
     initDrag(e) {
       this.startX = e.clientX;
       this.startY = e.clientY;
-      const top = this.$slots.top[0].elm;
+      const bottom = this.$slots.bottom[0].elm;
       this.startWidth = parseInt(
-        document.defaultView.getComputedStyle(top).width
+        document.defaultView.getComputedStyle(bottom).width
       );
       this.startHeight = parseInt(
-        document.defaultView.getComputedStyle(top).height
+        document.defaultView.getComputedStyle(bottom).height
       );
       document.documentElement.addEventListener(
         "mousemove",
@@ -52,8 +53,8 @@ export default {
     doDrag(e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      const top = this.$slots.top[0].elm;
-      top.style.height = this.startHeight + e.clientY - this.startY + "px";
+      const bottom = this.$slots.bottom[0].elm;
+      bottom.style.height = this.startHeight - (e.clientY - this.startY) + "px";
     },
     stopDrag() {
       document.documentElement.removeEventListener("mousemove", this.doDrag);
