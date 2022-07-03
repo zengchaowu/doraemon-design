@@ -46,6 +46,7 @@ export default {
         false
       );
       this.$refs.seperator.style.backgroundColor = "#3470ff";
+      this.$refs.container.style.cursor = "col-resize";
     },
     doDrag(e) {
       e.preventDefault();
@@ -57,6 +58,7 @@ export default {
       document.documentElement.removeEventListener("mousemove", this.doDrag);
       document.documentElement.removeEventListener("mouseup", this.stopDrag);
       this.$refs.seperator.style.backgroundColor = "transparent";
+      this.$refs.container.style.cursor = "default";
     },
   },
 };
