@@ -1,8 +1,12 @@
 <template>
-  <div class="relative">
-    <slot name="left" ref="left" class="flex-grow" />
-    <div ref="seperator" class="w-5px" style="cursor: col-resize" />
-    <slot name="right" ref="right" class="flex-grow" />
+  <div class="absolute inset-0 flex">
+    <div ref="left">
+      <slot name="left" />
+    </div>
+    <div id="seperator" ref="seperator" />
+    <div ref="right">
+      <slot name="right" />
+    </div>
   </div>
 </template>
 
@@ -10,7 +14,7 @@
 export default {
   data() {
     return {
-      container: undefined,
+      left: undefined,
       seperator: undefined,
       startX: undefined,
       startY: undefined,
@@ -19,7 +23,7 @@ export default {
     };
   },
   mounted() {
-    this.container = this.$refs.left;
+    this.left = this.$refs.left;
     this.seperator = this.$refs.seperator;
     this.seperator?.addEventListener("mousedown", this.initDrag, false);
   },
@@ -31,10 +35,10 @@ export default {
       this.startX = e.clientX;
       this.startY = e.clientY;
       this.startWidth = parseInt(
-        document.defaultView.getComputedStyle(this.container).width
+        document.defaultView.getComputedStyle(this.left).width
       );
       this.startHeight = parseInt(
-        document.defaultView.getComputedStyle(this.container).height
+        document.defaultView.getComputedStyle(this.left).height
       );
       document.documentElement.addEventListener(
         "mousemove",
@@ -48,8 +52,7 @@ export default {
       );
     },
     doDrag(e) {
-      this.container.style.width =
-        this.startWidth + e.clientX - this.startX + "px";
+      this.left.style.width = this.startWidth + e.clientX - this.startX + "px";
     },
     stopDrag() {
       document.documentElement.removeEventListener("mousemove", this.doDrag);
@@ -58,3 +61,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.seperator {
+  cursor: col-resize;
+  width: 4px;
+  height: 100%;
+}
+.seperator:hover {
+  background-color: #eee;
+}
+</style>
