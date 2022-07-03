@@ -48,7 +48,7 @@ export default {
       e.preventDefault();
       e.stopImmediatePropagation();
       const top = this.$slots.top[0].elm;
-      top.style.height = this.startHeight - (e.clientY - this.startY) + "px";
+      top.style.height = this.startHeight + e.clientY - this.startY + "px";
     },
     stopDrag() {
       document.documentElement.removeEventListener("mousemove", this.doDrag);
