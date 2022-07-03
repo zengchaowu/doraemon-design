@@ -1,7 +1,9 @@
 <template>
   <div ref="container" class="absolute inset-0 flex">
     <slot name="left" />
-    <div class="seperator" ref="seperator" />
+    <div class="wrapper" ref="wrapper">
+      <div class="seperator" ref="seperator"></div>
+    </div>
     <slot name="right" />
   </div>
 </template>
@@ -17,10 +19,10 @@ export default {
     };
   },
   mounted() {
-    this.$refs.seperator?.addEventListener("mousedown", this.initDrag, false);
+    this.$refs.wrapper?.addEventListener("mousedown", this.initDrag, false);
   },
   unmounted() {
-    this.$refs.seperator?.removeEventListener("mousedown", this.initDrag);
+    this.$refs.wrapper?.removeEventListener("mousedown", this.initDrag);
   },
   methods: {
     initDrag(e) {
@@ -43,6 +45,7 @@ export default {
         this.stopDrag,
         false
       );
+      this.$refs.seperator.style.backgroundColor = "#3470ff";
     },
     doDrag(e) {
       e.preventDefault();
@@ -53,18 +56,24 @@ export default {
     stopDrag() {
       document.documentElement.removeEventListener("mousemove", this.doDrag);
       document.documentElement.removeEventListener("mouseup", this.stopDrag);
+      this.$refs.seperator.style.backgroundColor = "transparent";
     },
   },
 };
 </script>
 
 <style scoped>
-.seperator {
+.wrapper {
+  position: relative;
+  left: -1px;
   cursor: col-resize;
   width: 4px;
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
-.seperator:hover {
-  background-color: #eee;
+.seperator {
+  width: 2px;
+  height: 100%;
 }
 </style>
