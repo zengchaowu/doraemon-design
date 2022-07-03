@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     initDrag(e) {
-      console.log(this);
       this.startX = e.clientX;
       this.startY = e.clientY;
       const left = this.$slots.left[0].elm;
@@ -46,6 +45,8 @@ export default {
       );
     },
     doDrag(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
       const left = this.$slots.left[0].elm;
       left.style.width = this.startWidth + e.clientX - this.startX + "px";
     },
