@@ -2,7 +2,9 @@
   <div ref="container" class="absolute inset-0 flex">
     <slot name="left" />
     <div class="wrapper" ref="wrapper">
-      <div class="seperator" ref="seperator"></div>
+      <div class="seperator" ref="seperator">
+        <div class="line" ref="line"></div>
+      </div>
     </div>
     <slot name="right" />
   </div>
@@ -45,7 +47,7 @@ export default {
         this.stopDrag,
         false
       );
-      this.$refs.seperator.style.backgroundColor = "#3470ff";
+      this.$refs.line.style.backgroundColor = "#3470ff";
       this.$refs.container.style.cursor = "col-resize";
     },
     doDrag(e) {
@@ -57,7 +59,7 @@ export default {
     stopDrag() {
       document.documentElement.removeEventListener("mousemove", this.doDrag);
       document.documentElement.removeEventListener("mouseup", this.stopDrag);
-      this.$refs.seperator.style.backgroundColor = "transparent";
+      this.$refs.line.style.backgroundColor = "transparent";
       this.$refs.container.style.cursor = "default";
     },
   },
@@ -67,7 +69,6 @@ export default {
 <style scoped>
 .wrapper {
   position: relative;
-  left: -1px;
   cursor: col-resize;
   width: 0px;
   height: 100%;
@@ -78,7 +79,13 @@ export default {
   position: absolute;
   top: 0px;
   bottom: 0px;
-  left: -1px;
-  right: -1px;
+  width: 10px;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+.line {
+  width: 1px;
+  height: 100%;
 }
 </style>
