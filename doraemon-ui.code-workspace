@@ -1,13 +1,13 @@
 {
   "folders": [
-	{
-		"name": "✨ root",
-		"path": "."
-	},
-	{
-		"name": "📦 @doraemon-ui/input",
-		"path": "packages/input"
-	}
-],
+    {
+      "name": "✨ root",
+      "path": "."
+    },
+    {
+      "name": "📦 @doraemon-design/input",
+      "path": "packages/input"
+    }
+  ],
   "settings": {}
 }
