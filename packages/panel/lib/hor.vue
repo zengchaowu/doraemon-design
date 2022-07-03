@@ -1,12 +1,8 @@
 <template>
-  <div class="absolute inset-0 flex">
-    <div ref="left">
-      <slot name="left" />
-    </div>
+  <div ref="container" class="absolute inset-0 flex">
+    <slot name="left" />
     <div class="seperator" ref="seperator" />
-    <div ref="right">
-      <slot name="right" />
-    </div>
+    <slot name="right" />
   </div>
 </template>
 
@@ -14,8 +10,6 @@
 export default {
   data() {
     return {
-      left: undefined,
-      seperator: undefined,
       startX: undefined,
       startY: undefined,
       startWidth: undefined,
@@ -23,22 +17,22 @@ export default {
     };
   },
   mounted() {
-    this.left = this.$refs.left;
-    this.seperator = this.$refs.seperator;
-    this.seperator?.addEventListener("mousedown", this.initDrag, false);
+    this.$refs.seperator?.addEventListener("mousedown", this.initDrag, false);
   },
   unmounted() {
-    this.seperator?.removeEventListener("mousedown", this.initDrag);
+    this.$refs.seperator?.removeEventListener("mousedown", this.initDrag);
   },
   methods: {
     initDrag(e) {
+      console.log(this);
       this.startX = e.clientX;
       this.startY = e.clientY;
+      const left = this.$slots.left[0].elm;
       this.startWidth = parseInt(
-        document.defaultView.getComputedStyle(this.left).width
+        document.defaultView.getComputedStyle(left).width
       );
       this.startHeight = parseInt(
-        document.defaultView.getComputedStyle(this.left).height
+        document.defaultView.getComputedStyle(left).height
       );
       document.documentElement.addEventListener(
         "mousemove",
@@ -52,7 +46,8 @@ export default {
       );
     },
     doDrag(e) {
-      this.left.style.width = this.startWidth + e.clientX - this.startX + "px";
+      const left = this.$slots.left[0].elm;
+      left.style.width = this.startWidth + e.clientX - this.startX + "px";
     },
     stopDrag() {
       document.documentElement.removeEventListener("mousemove", this.doDrag);
