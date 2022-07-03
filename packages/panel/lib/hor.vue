@@ -67,13 +67,16 @@ export default {
   position: relative;
   left: -1px;
   cursor: col-resize;
-  width: 4px;
+  width: 0px;
   height: 100%;
   display: flex;
   justify-content: center;
 }
 .seperator {
-  width: 2px;
-  height: 100%;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: -1px;
+  right: -1px;
 }
 </style>

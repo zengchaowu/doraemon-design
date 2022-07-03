@@ -68,12 +68,15 @@ export default {
   top: -1px;
   cursor: row-resize;
   width: 100%;
-  height: 4px;
+  height: 0px;
   display: flex;
   align-items: center;
 }
 .seperator {
-  width: 100%;
-  height: 2px;
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 0px;
+  right: 0px;
 }
 </style>
