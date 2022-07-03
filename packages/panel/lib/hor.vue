@@ -3,7 +3,7 @@
     <div ref="left">
       <slot name="left" />
     </div>
-    <div id="seperator" ref="seperator" />
+    <div class="seperator" ref="seperator" />
     <div ref="right">
       <slot name="right" />
     </div>
