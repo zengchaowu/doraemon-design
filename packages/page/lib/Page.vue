@@ -19,23 +19,49 @@ export default {
       context: null, // null load search
       request: {
         load: {
-          url: undefined,
-          params: undefined,
-          headers: undefined,
+          reload: {
+            url: undefined,
+            params: undefined,
+            headers: undefined,
+          },
+          append: {
+            url: undefined,
+            params: undefined,
+            headers: undefined,
+          },
         },
         search: {
-          url: undefined,
-          params: undefined,
-          headers: undefined,
+          reload: {
+            url: undefined,
+            params: undefined,
+            headers: undefined,
+          },
+          append: {
+            url: undefined,
+            params: undefined,
+            headers: undefined,
+          },
         },
       },
       state: {
-        load: undefined,
-        search: undefined,
+        load: {
+          reload: undefined,
+          append: undefined,
+        },
+        search: {
+          reload: undefined,
+          append: undefined,
+        },
       },
       data: {
-        load: undefined,
-        search: undefined,
+        load: {
+          reload: undefined,
+          append: undefined,
+        },
+        search: {
+          reload: undefined,
+          append: undefined,
+        },
       },
     };
   },
