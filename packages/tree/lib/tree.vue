@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col">
-    <button>
+    <button v-if="payload.icon || payload.title">
       <img class="w-5 h-5" :src="payload.icon" />
-      <span v-if="payload.name" class="min-w-0 truncate">
-        {{ payload.name }}
+      <span v-if="payload.title" class="min-w-0 truncate">
+        {{ payload.title }}
       </span>
     </button>
     <template v-if="payload.children" class="flex flex-col">
