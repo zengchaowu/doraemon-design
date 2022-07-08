@@ -12,7 +12,7 @@
       class="flex justify-between items-center"
       :class="perference?.classForNode(payload)"
       :style="{
-        padding: '8px 16px',
+        padding: '8px 8px',
         cursor: payload.path ? 'pointer' : 'default',
         pointerEvents: payload.path || payload.children ? 'default' : 'none',
       }"
@@ -26,8 +26,8 @@
         }"
       >
         <img
-          v-if="indent < 2"
-          :src="'/icons' + payload.path + '.svg'"
+          v-if="payload.icon"
+          :src="'/icons' + payload.icon + '.svg'"
           :style="{
             width: '18px',
             height: '18px',
