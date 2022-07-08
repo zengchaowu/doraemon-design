@@ -1,73 +1,59 @@
 <template>
-  <div ref="container" class="absolute inset-0 flex">
-    <template v-if="context === 'load'">
-      <slot name="load"></slot>
-    </template>
-    <template v-else-if="context === 'search'">
-      <slot name="search"></slot>
-    </template>
-    <template v-else>
-      <slot></slot>
-    </template>
+  <div class="flex flex-col common-panel-gap">
+    <div v-if="components.filter" :class="config?.class?.filter">
+      <component :is="components.filter" ref="filter" @search="search" />
+    </div>
+    <div v-if="components.table" :class="config?.class?.table">
+      <component
+        :is="components.table"
+        ref="table"
+        :payload="filter"
+        @mounted="tableMounted"
+      />
+    </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
     return {
-      context: null, // null load search
-      request: {
-        load: {
-          reload: {
-            url: undefined,
-            params: undefined,
-            headers: undefined,
-          },
-          append: {
-            url: undefined,
-            params: undefined,
-            headers: undefined,
-          },
-        },
-        search: {
-          reload: {
-            url: undefined,
-            params: undefined,
-            headers: undefined,
-          },
-          append: {
-            url: undefined,
-            params: undefined,
-            headers: undefined,
-          },
-        },
+      path: undefined,
+      filter: undefined,
+      components: {
+        filter: undefined,
+        table: undefined,
       },
-      state: {
-        load: {
-          reload: undefined,
-          append: undefined,
+      config: {
+        visible: {
+          filter: true,
+          table: true,
         },
-        search: {
-          reload: undefined,
-          append: undefined,
-        },
-      },
-      data: {
-        load: {
-          reload: undefined,
-          append: undefined,
-        },
-        search: {
-          reload: undefined,
-          append: undefined,
+        class: {
+          filter: ["bg-white", "common-panel-padding"],
+          table: ["bg-white", "common-panel-padding"],
         },
       },
     };
   },
+  created() {
+    if (this.config.visible.filter) {
+      this.components.filter = () =>
+        import(`~/components/${this.path}/TheFilter.vue`);
+    }
+    if (this.config.visible.table) {
+      this.components.table = () =>
+        import(`~/components/${this.path}/Table.vue`);
+    }
+  },
   methods: {
-    reloadData() {},
-    appendData() {},
+    search(payload) {
+      this.filter = payload;
+    },
+    tableMounted() {
+      this.$refs.filter?.search
+        ? this.$refs.filter.search()
+        : this.$refs.table.reloadData();
+    },
   },
 };
 </script>
