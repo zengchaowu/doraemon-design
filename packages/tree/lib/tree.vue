@@ -15,7 +15,7 @@
         cursor: payload.path ? 'pointer' : 'default',
         pointerEvents: payload.path || payload.children ? 'default' : 'none',
       }"
-      @click="jump"
+      @click="click"
     >
       <div
         class="flex-grow flex items-center"
@@ -44,7 +44,6 @@
           padding: '4px',
           transform: payload.isOpen ? 'rotate(90deg)' : undefined,
         }"
-        @click="open"
       >
         <img
           src="/icons/arrow.svg"
@@ -61,7 +60,7 @@
         :key="index"
         :payload="child"
         :indent="indent + 1"
-        @clickPop="(node) => $emit('clickPop', node)"
+        @select="(node) => $emit('select', node)"
       />
     </template>
   </div>
@@ -81,14 +80,11 @@ export default {
     },
   },
   methods: {
-    open() {
-      this.payload.isOpen = !this.payload.isOpen;
-    },
-    jump() {
+    click() {
       if (this.payload.children) {
-        this.open();
+        this.payload.isOpen = !this.payload.isOpen;
       } else {
-        this.$emit("clickPop", this.payload);
+        this.$emit("select", this.payload);
       }
     },
   },
