@@ -61,6 +61,7 @@
         :key="index"
         :payload="child"
         :indent="indent + 1"
+        @clickPop="(node) => $emit('clickPop', node)"
       />
     </template>
   </div>
@@ -86,6 +87,8 @@ export default {
     jump() {
       if (this.payload.children) {
         this.open();
+      } else {
+        this.$emit("clickPop", this.payload);
       }
     },
   },
