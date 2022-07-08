@@ -10,6 +10,7 @@
       v-if="payload.icon || payload.title"
       id="link"
       class="flex justify-between items-center"
+      :class="perference?.classForNode(payload)"
       :style="{
         padding: '8px 16px',
         cursor: payload.path ? 'pointer' : 'default',
@@ -59,8 +60,8 @@
         v-for="(child, index) in payload.children"
         :key="index"
         :payload="child"
+        :perference="perference"
         :indent="indent + 1"
-        @select="(node) => $emit('select', node)"
       />
     </template>
   </div>
@@ -74,6 +75,10 @@ export default {
       type: Object,
       default: undefined,
     },
+    perference: {
+      type: Object,
+      default: undefined,
+    },
     indent: {
       type: Number,
       default: 0,
@@ -84,7 +89,7 @@ export default {
       if (this.payload.children) {
         this.payload.isOpen = !this.payload.isOpen;
       } else {
-        this.$emit("select", this.payload);
+        this.perference?.selectNode(this.payload);
       }
     },
   },
