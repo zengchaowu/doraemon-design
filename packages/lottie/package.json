@@ -1,0 +1,11 @@
+{
+  "name": "@doraemon-design/lottie",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "zengchaowu <root@zengchaowu.com>",
+  "license": "ISC",
+  "dependencies": {
+    "lottie-web": "^5.9.6"
+  }
+}
