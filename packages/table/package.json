@@ -4,5 +4,10 @@
   "description": "",
   "keywords": [],
   "author": "zengchaowu <root@zengchaowu.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lodash.isnil": "^4.0.0",
+    "nanoid": "^4.0.0",
+    "object-path": "^0.11.8"
+  }
 }

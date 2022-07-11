@@ -1,7 +1,7 @@
 <template>
   <div ref="container" class="absolute inset-0 flex">
     <template v-if="context === 'load'">
-      <slot name="load"></slot>
+      <slot name="load" v-bind:context="{ state, data }"></slot>
     </template>
     <template v-else-if="context === 'search'">
       <slot name="search"></slot>
@@ -44,24 +44,12 @@ export default {
         },
       },
       state: {
-        load: {
-          reload: undefined,
-          append: undefined,
-        },
-        search: {
-          reload: undefined,
-          append: undefined,
-        },
+        load: undefined, // undefined reloading appending success reloadError appendError
+        search: undefined, // undefined reloading appending success reloadError appendError
       },
       data: {
-        load: {
-          reload: undefined,
-          append: undefined,
-        },
-        search: {
-          reload: undefined,
-          append: undefined,
-        },
+        load: undefined,
+        search: undefined,
       },
     };
   },
