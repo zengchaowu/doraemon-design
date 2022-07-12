@@ -1,8 +1,8 @@
 <template>
   <DoraemonFragment>
-    <template v-slot:load="context">
-      <template v-if="context.state.load.reload === 'success'">
-        <template v-if="context.data.load?.length > 0">
+    <template #default="{ context }">
+      <template v-if="context.state?.load?.reload === 'success'">
+        <template v-if="context.data?.load?.length > 0">
           <div
             class="relative flex"
             :class="
@@ -182,92 +182,17 @@
                 </template>
               </div>
             </div>
-            <!-- 操作列表 -->
-            <div
-              v-if="config?.actions && !preview"
-              class="flex-none flex flex-col"
-              :class="
-                [].concat(
-                  config?.appearance?.border?.visible?.column
-                    ? ['border-l', 'border-border']
-                    : undefined
-                )
-              "
-            >
-              <span
-                class="relative z-10 flex h-12"
-                :class="
-                  []
-                    .concat(
-                      config?.appearance?.border?.visible?.header
-                        ? ['border-b', 'border-border']
-                        : undefined
-                    )
-                    .concat(config?.appearance?.class?.header)
-                "
-              >
-                <span
-                  class="min-w-0 flex p-2"
-                  :class="[].concat(config?.appearance?.class?.column)"
-                >
-                  {{ config?.appearance?.label?.action }}
-                </span>
-              </span>
-              <div
-                class="flex flex-col"
-                :class="
-                  [].concat(
-                    config?.appearance?.border?.visible?.cell
-                      ? ['divide-y', 'divide-border']
-                      : undefined
-                  )
-                "
-              >
-                <div
-                  v-for="(item, index) in list"
-                  :key="item.id"
-                  class="h-12 flex items-center justify-center gap-2 px-2"
-                  :class="[].concat(config?.appearance?.class?.column)"
-                >
-                  <template v-for="action in config?.actions">
-                    <template v-if="action.display(item, index)">
-                      <ButtonAction
-                        :key="action.id"
-                        :payload="action"
-                        @click="action.method(item, index)"
-                      >
-                        {{ action.label(item, index) }}
-                      </ButtonAction>
-                    </template>
-                  </template>
-                </div>
-              </div>
-            </div>
           </div>
-          <template
-            v-if="type === undefined && config?.appearance?.visible?.pagination"
-          >
-            <!-- <a-affix :offset-bottom="10"> -->
-            <div class="flex px-4 pb-4 justify-end">
-              <a-pagination
-                v-model="params.page"
-                show-size-changer
-                :total="count"
-                :page-size.sync="params.limit"
-              />
-            </div>
-            <!-- </a-affix> -->
-          </template>
         </template>
-        <template v-else-if="components.empty">
-          <component :is="components.empty" />
+        <template v-else-if="components?.empty">
+          <component :is="components?.empty" />
         </template>
       </template>
-      <div v-else-if="context.state.load.reload === 'reloading'">
-        <component :is="components.reloading" />
+      <div v-else-if="context.state?.load?.reload === 'reloading'">
+        <component :is="components?.reloading" />
       </div>
-      <div v-else-if="context.state.load.reload === 'reloadError'">
-        <component :is="components.error" />
+      <div v-else-if="context.state?.load?.reload === 'reloadError'">
+        <component :is="components?.error" />
       </div>
     </template>
   </DoraemonFragment>
@@ -275,13 +200,10 @@
 
 <script>
 import isNil from "lodash.isnil";
-import { nanoid } from "nanoid";
 import { get as keypath } from "object-path";
-import form from "~/mixins/form.js";
 import DoraemonFragment from "@doraemon-design/page/lib/Fragment.vue";
 export default {
   components: { DoraemonFragment },
-  mixins: [form],
   model: {
     prop: "value",
     event: "update",
@@ -322,8 +244,6 @@ export default {
       type: undefined,
       // 请求地址
       url: undefined,
-      // 状态
-      state: undefined,
       // 双向数据绑定，暂时只用于config.buttons中的部分有状态组件
       models: {},
       // 弹窗
@@ -477,7 +397,7 @@ export default {
     },
     // 在尾部追加
     appendRow(models = {}) {
-      this.list.push({ id: nanoid(), models });
+      this.list.push({ models });
     },
   },
 };

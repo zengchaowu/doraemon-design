@@ -4,10 +4,10 @@
       <slot name="load" v-bind:context="{ state, data }"></slot>
     </template>
     <template v-else-if="context === 'search'">
-      <slot name="search"></slot>
+      <slot name="search" v-bind:context="{ state, data }"></slot>
     </template>
     <template v-else>
-      <slot></slot>
+      <slot v-bind:context="{ state, data }"></slot>
     </template>
   </div>
 </template>
