@@ -9,12 +9,10 @@
     <div
       v-if="payload.icon || payload.title"
       id="link"
-      class="flex justify-between items-center"
+      class="flex justify-between items-center cursor-pointer"
       :class="perference?.classForNode(payload)"
       :style="{
         padding: '8px 8px',
-        cursor: payload.path ? 'pointer' : 'default',
-        pointerEvents: payload.path || payload.children ? 'default' : 'none',
       }"
       @click="click"
     >
