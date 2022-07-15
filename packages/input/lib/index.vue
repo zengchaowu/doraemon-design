@@ -12,8 +12,6 @@
 <script>
 import camelcase from "camelcase";
 import _interface from "../mixin/input.js";
-import Text from "./Text.vue";
-import File from "./File.vue";
 export default {
   mixins: [_interface],
   data() {
@@ -23,8 +21,7 @@ export default {
   },
   created() {
     const name = camelcase(this.payload.type, { pascalCase: true });
-    console.log(name);
-    this.component = File;
+    this.component = require(`./${name}.vue`).default;
   },
 };
 </script>

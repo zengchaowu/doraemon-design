@@ -1,0 +1,27 @@
+<template>
+  <div v-if="preview" class="flex truncate items-center min-w-0 h-8">
+    <a-tooltip class="min-w-0 truncate">
+      <template #title>
+        {{ value }}
+      </template>
+      {{ value }}
+    </a-tooltip>
+  </div>
+  <a-range-picker
+    v-else
+    :value="value?.split(',')"
+    value-format="YYYY-MM-DD"
+    @change="dateRangeChange"
+  />
+</template>
+<script>
+import _interface from "../mixin/input.js";
+export default {
+  mixins: [_interface],
+  methods: {
+    dateRangeChange(result) {
+      this.payload?.onChange && this.payload?.onChange(result);
+    },
+  },
+};
+</script>
