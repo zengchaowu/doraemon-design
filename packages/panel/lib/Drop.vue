@@ -45,6 +45,7 @@ export default {
       }
     },
     onDrop(e) {
+      this.counter = 0;
       this.dragover = false;
       console.log(e.dataTransfer.files);
     },
