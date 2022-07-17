@@ -4,11 +4,8 @@
     @dragover.prevent="onDragover"
     @dragleave.prevent="onDragleave"
     style="position: relative"
-    class="group"
   >
-    <div class="group-hover:pointer-events-none">
-      <slot />
-    </div>
+    <slot />
 
     <div
       v-if="dragover"
