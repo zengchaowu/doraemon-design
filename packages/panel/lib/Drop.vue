@@ -5,7 +5,7 @@
     @dragleave.prevent="onDragleave"
     style="position: relative"
   >
-    <slot />
+    <slot v-bind:dragover="dragover" />
 
     <div
       v-if="dragover"
@@ -29,9 +29,11 @@ export default {
   },
   methods: {
     onDragover() {
+      console.log("onDragover");
       this.dragover = true;
     },
     onDragleave() {
+      console.log("onDragleave");
       this.dragover = false;
     },
     onDrop(e) {
@@ -41,5 +43,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
