@@ -1,12 +1,12 @@
 <template>
   <div
     @drop.prevent="onDrop"
+    @dragenter.prevent="onDragenter"
     @dragover.prevent="onDragover"
     @dragleave.prevent="onDragleave"
     style="position: relative"
   >
-    <slot v-bind:dragover="dragover" />
-
+    <slot />
     <div
       v-if="dragover"
       style="
@@ -24,17 +24,25 @@
 export default {
   data() {
     return {
+      counter: 0,
       dragover: false,
     };
   },
   methods: {
-    onDragover() {
-      console.log("onDragover");
+    onDragenter() {
+      console.log("dragenter");
+      this.counter++;
       this.dragover = true;
     },
+    onDragover() {
+      console.log("dragover");
+    },
     onDragleave() {
-      console.log("onDragleave");
-      this.dragover = false;
+      console.log("dragleave");
+      this.counter--;
+      if (this.counter <= 0) {
+        this.dragover = false;
+      }
     },
     onDrop(e) {
       this.dragover = false;
