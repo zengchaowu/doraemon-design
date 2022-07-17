@@ -3,10 +3,9 @@
     @drop.prevent="onDrop"
     @dragover.prevent="onDragover"
     @dragleave.prevent="onDragleave"
+    class="relative"
   >
-    <div class="pointer-events-none">
-      <slot />
-    </div>
+    <slot class="pointer-events-none" />
     <div
       v-if="dragover"
       class="absolute inset-0 bg-gray-900 bg-opacity-50 pointer-events-none"
