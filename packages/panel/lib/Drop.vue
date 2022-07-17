@@ -3,12 +3,22 @@
     @drop.prevent="onDrop"
     @dragover.prevent="onDragover"
     @dragleave.prevent="onDragleave"
-    class="relative"
+    style="position: relative"
+    class="group"
   >
-    <slot class="pointer-events-none" />
+    <div class="group-hover:pointer-events-none">
+      <slot />
+    </div>
+
     <div
       v-if="dragover"
-      class="absolute inset-0 bg-gray-900 bg-opacity-50 pointer-events-none"
+      style="
+        position: absolute;
+        inset: 0;
+        background-color: black;
+        opacity: 0.5;
+        pointer-events: none;
+      "
     />
   </div>
 </template>
@@ -34,3 +44,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>
