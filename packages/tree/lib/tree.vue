@@ -6,10 +6,11 @@
       gap: '1px',
     }"
   >
-    <div
+    <button
+      type="button"
       v-if="payload.icon || payload.title"
       id="link"
-      class="flex justify-between items-center cursor-pointer"
+      class="flex justify-between items-center"
       :class="perference?.classForNode(payload)"
       :style="{
         padding: '8px 8px',
@@ -52,7 +53,7 @@
           }"
         />
       </div>
-    </div>
+    </button>
     <template v-if="payload.children && payload.isOpen">
       <DoraemonTree
         v-for="(child, index) in payload.children"

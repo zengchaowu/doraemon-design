@@ -2,9 +2,10 @@
   <div :class="appearance.container">
     <component
       v-for="(item, index) in items"
-      :is="item.module"
       :key="index"
+      :is="item.module"
       :class="item.class"
+      :state="state"
     />
   </div>
 </template>
@@ -13,6 +14,7 @@
 export default {
   data() {
     return {
+      state: undefined,
       dirname: undefined,
       components: undefined,
       items: undefined,
