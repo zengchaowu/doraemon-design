@@ -3,7 +3,7 @@
     <template v-if="payload">
       <template v-if="context === 'load'">
         <template v-if="state.load === 'success'">
-          <template v-if="data.load.length > 0">
+          <template v-if="data.load?.length > 0">
             <slot name="load" v-bind:context="{ state, data }"></slot>
           </template>
           <template v-else>
