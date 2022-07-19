@@ -98,7 +98,7 @@ export default {
               this.data.load = result;
               this.state.load = "success";
             } catch (error) {
-              handleError(error);
+              host.methods.handleError && host.methods.handleError(error);
             }
           },
           async appending() {
@@ -109,7 +109,7 @@ export default {
               this.data.load = this.data.load.concat(result);
               this.state.load = "success";
             } catch (error) {
-              handleError(error);
+              host.methods.handleError && host.methods.handleError(error);
             }
           },
         },
