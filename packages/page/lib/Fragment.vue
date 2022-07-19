@@ -94,7 +94,7 @@ export default {
             try {
               this.context = "load";
               this.state.load = "reloading";
-              const result = await payload.methods.requestData();
+              const result = await this.payload.methods.requestData();
               this.data.load = result;
               this.state.load = "success";
             } catch (error) {
@@ -106,7 +106,7 @@ export default {
             try {
               this.context = "load";
               this.state.load = "appending";
-              const result = await payload.methods.requestData();
+              const result = await this.payload.methods.requestData();
               this.data.load = this.data.load.concat(result);
               this.state.load = "success";
             } catch (error) {
