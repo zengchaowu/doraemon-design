@@ -1,8 +1,6 @@
 import pick from "lodash.pick";
 import keys from "lodash.keys";
-import Modal from "@doraemon-design/modal/lib/Modal.vue";
 export default {
-  components: { Modal },
   props: {
     payload: {
       type: Object,
@@ -18,8 +16,7 @@ export default {
     Object.assign(this.models, pick(this.payload?.data, keys(this.models)));
   },
   methods: {
-    submit() {},
-    cancel() {
+    dismiss() {
       this.$modal.hide(this.payload?.name);
     },
   },
