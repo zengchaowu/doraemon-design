@@ -4,7 +4,7 @@
       <button class="absolute z-20 right-2 top-2" type="button" @click="cancel">
         <div
           class="hover:text-primary fill-current w-6 h-6 object-contain"
-          v-html="require('~/assets/images/icon-clear.svg?include')"
+          v-html="require('~/assets/images/icons/close.svg?include')"
         />
       </button>
     </div>
@@ -41,9 +41,9 @@ export default {
   },
   methods: {
     cancel() {
-      this.payload?.cancel && this.payload?.cancel()
-      this.$modal.hide(this.payload?.name)
+      this.payload?.cancel && this.payload?.cancel();
+      this.$modal.hide(this.payload?.name);
     },
   },
-}
+};
 </script>

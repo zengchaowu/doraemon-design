@@ -4,5 +4,9 @@
   "description": "",
   "keywords": [],
   "author": "zengchaowu <root@zengchaowu.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lodash.keys": "^4.2.0",
+    "lodash.pick": "^4.4.0"
+  }
 }
