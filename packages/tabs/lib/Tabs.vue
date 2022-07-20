@@ -1,14 +1,14 @@
 <template>
-  <div class="flex gap-4">
-    <div
+  <div :style="{ display: 'flex', gap: '1rem' }">
+    <button
       v-for="(tab, index) in payload?.tabs"
       :key="index"
-      class="font-medium cursor-pointer"
+      type="button"
       :class="tab.value === value ? 'text-primary' : 'text-gray-500'"
       @click="$emit('update', tab.value)"
     >
       <span>{{ tab.label }}</span>
-    </div>
+    </button>
   </div>
 </template>
 <script>
