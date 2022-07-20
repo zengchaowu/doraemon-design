@@ -7,8 +7,9 @@
       {{ parseSelect(payload?.options, value) }}
     </a-tooltip>
   </div>
-  <div v-else class="flex relative" @click.stop="onClick">
+  <div v-else class="content" @click="onClick">
     <a-select
+      ref="select"
       class="flex-grow"
       :value="value"
       :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
@@ -26,6 +27,9 @@
         </span>
       </a-select-option>
     </a-select>
+    <div v-if="state === 'loading'" class="state-loading">
+      <a-spin size="small" />
+    </div>
   </div>
 </template>
 
@@ -49,6 +53,8 @@ export default {
           const result = await this.payload?.getOptions();
           this.options = result;
           this.state = "success";
+          console.log(this.$refs.select);
+          this.$refs.select.$el.click();
         } catch (error) {
           console.log(error);
           this.state = "fail";
@@ -62,7 +68,16 @@ export default {
 <style scoped>
 .content {
   display: flex;
-  justify-content: space-between;
+  position: relative;
+  cursor: pointer;
+}
+
+.state-loading {
+  position: absolute;
+  inset: 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
   align-items: center;
   user-select: none;
 }
