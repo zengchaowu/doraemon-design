@@ -8,7 +8,7 @@
   >
     <button
       type="button"
-      v-if="payload.icon || payload.title"
+      v-if="payload?.icon || payload?.title"
       id="link"
       class="flex justify-between items-center"
       :class="perference?.classForNode(payload)"
@@ -25,19 +25,19 @@
         }"
       >
         <img
-          v-if="payload.icon"
-          :src="'/icons' + payload.icon + '.svg'"
+          v-if="payload?.icon"
+          :src="'/icons' + payload?.icon + '.svg'"
           :style="{
             width: '18px',
             height: '18px',
           }"
         />
-        <span v-if="payload.title" id="title" class="min-w-0 truncate">
-          {{ payload.title }}
+        <span v-if="payload?.title" id="title" class="min-w-0 truncate">
+          {{ payload?.title }}
         </span>
       </div>
       <div
-        v-if="payload.children"
+        v-if="payload?.children"
         id="arrow"
         class="flex items-center"
         :style="{
@@ -54,9 +54,9 @@
         />
       </div>
     </button>
-    <template v-if="payload.children && payload.isOpen">
+    <template v-if="payload?.children && payload.isOpen">
       <DoraemonTree
-        v-for="(child, index) in payload.children"
+        v-for="(child, index) in payload?.children"
         :key="index"
         :payload="child"
         :perference="perference"
@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     click() {
-      if (this.payload.children) {
+      if (this.payload?.children) {
         this.payload.isOpen = !this.payload.isOpen;
       } else {
         this.perference?.selectNode(this.payload);
