@@ -7,24 +7,26 @@
       {{ parseSelect(payload?.options, value) }}
     </a-tooltip>
   </div>
-  <a-select
-    v-else
-    class="w-32"
-    :value="value"
-    :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
-    :disabled="disabled"
-    @change="(option) => $emit('update', option)"
-  >
-    <a-select-option
-      v-for="(option, index) in payload?.options"
-      :key="index"
-      :value="option.value"
+  <div v-else class="flex relative" @click.stop="onClick">
+    <a-select
+      class="flex-grow"
+      :value="value"
+      :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
+      :disabled="disabled"
+      @change="(option) => $emit('update', option)"
+      :style="{ 'pointer-events': options ? undefined : 'none' }"
     >
-      <span>
-        {{ option.label }}
-      </span>
-    </a-select-option>
-  </a-select>
+      <a-select-option
+        v-for="(option, index) in options"
+        :key="index"
+        :value="option.value"
+      >
+        <span>
+          {{ option.label }}
+        </span>
+      </a-select-option>
+    </a-select>
+  </div>
 </template>
 
 <script>
@@ -41,7 +43,6 @@ export default {
   methods: {
     parseSelect,
     async onClick() {
-      console.log(this.state);
       if (this.state === undefined || this.state === "fail") {
         this.state = "loading";
         try {
