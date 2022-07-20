@@ -13,21 +13,17 @@
     :value="value"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
-    @click.native="click"
     @change="(option) => $emit('update', option)"
   >
-    <div slot="dropdownRender" slot-scope="menu">
-      <div v-if="state === 'success'" class="content">
-        <span v-if="options?.length > 0">加载失败</span>
-        <span v-else>选项为空</span>
-      </div>
-      <div v-else-if="state === 'fail'" class="content">
-        <span>加载失败</span>
-      </div>
-      <div v-else class="content">
-        <a-spin />
-      </div>
-    </div>
+    <a-select-option
+      v-for="(option, index) in payload?.options"
+      :key="index"
+      :value="option.value"
+    >
+      <span>
+        {{ option.label }}
+      </span>
+    </a-select-option>
   </a-select>
 </template>
 
@@ -44,7 +40,7 @@ export default {
   },
   methods: {
     parseSelect,
-    async click() {
+    async onClick() {
       console.log(this.state);
       if (this.state === undefined || this.state === "fail") {
         this.state = "loading";
@@ -65,8 +61,8 @@ export default {
 <style scoped>
 .content {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 100px;
+  user-select: none;
 }
 </style>
