@@ -18,7 +18,8 @@
   >
     <div slot="dropdownRender" slot-scope="menu">
       <div v-if="state === 'success'" class="content">
-        <a-spin />
+        <span v-if="options?.length > 0">加载失败</span>
+        <span v-else>加载失败</span>
       </div>
       <div v-else-if="state === 'fail'" class="content">
         <span>加载失败</span>
