@@ -40,15 +40,29 @@ export default {
       context: null, // null load search
       request: {
         load: {
-          reload: {
-            url: undefined,
-            params: undefined,
-            headers: undefined,
+          reloadData: async () => {
+            try {
+              this.context = "load";
+              this.state.load = "reloading";
+              const result = await this.payload.request.requestData();
+              this.data.load = result;
+              this.state.load = "success";
+            } catch (error) {
+              this.payload?.request?.handleError &&
+                this.payload.request.handleError(error);
+            }
           },
-          append: {
-            url: undefined,
-            params: undefined,
-            headers: undefined,
+          appendData: async () => {
+            try {
+              this.context = "load";
+              this.state.load = "appending";
+              const result = await this.payload.request.requestData();
+              this.data.load = this.data.load.concat(result);
+              this.state.load = "success";
+            } catch (error) {
+              this.payload?.request?.handleError &&
+                this.payload.request.handleError(error);
+            }
           },
         },
         search: {
@@ -86,38 +100,6 @@ export default {
           appending: undefined,
           reloadError: undefined,
           appendError: undefined,
-        },
-      },
-      methods: {
-        load: {
-          reloading: async () => {
-            try {
-              this.context = "load";
-              this.state.load = "reloading";
-              const result = await this.payload.methods.requestData();
-              this.data.load = result;
-              this.state.load = "success";
-            } catch (error) {
-              this.payload?.methods?.handleError &&
-                this.payload.methods.handleError(error);
-            }
-          },
-          appending: async () => {
-            try {
-              this.context = "load";
-              this.state.load = "appending";
-              const result = await this.payload.methods.requestData();
-              this.data.load = this.data.load.concat(result);
-              this.state.load = "success";
-            } catch (error) {
-              this.payload?.methods?.handleError &&
-                this.payload.methods.handleError(error);
-            }
-          },
-        },
-        search: {
-          reloading: () => {},
-          appending: () => {},
         },
       },
     };
