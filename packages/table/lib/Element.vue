@@ -21,6 +21,19 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column fixed="right" width="200">
+          <template slot="header">
+            <div class="flex-center">
+              <span class="min-w-0 truncate"> 操作 </span>
+            </div>
+          </template>
+          <template slot-scope="scope">
+            <div class="flex-center gap-2">
+              <a-button type="primary">删除</a-button>
+              <a-button type="primary">删除</a-button>
+            </div>
+          </template>
+        </el-table-column>
       </el-table>
     </template>
   </DoraemonFragment>
