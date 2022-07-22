@@ -1,198 +1,182 @@
 <template>
   <DoraemonFragment ref="fragment" :payload="{ components, request }">
-    <template #default="{ context }">
-      <template v-if="context.state?.load?.reload === 'success'">
-        <template v-if="context.data?.load?.length > 0">
+    <template #load="{ context }">
+      <div
+        class="relative flex"
+        :class="
+          [].concat(
+            // 自定义cell和outter为真才显示边框
+            !config?.cell && config?.appearance?.border?.visible?.outter
+              ? ['border-border', 'border-1']
+              : undefined
+          )
+        "
+      >
+        <!-- 表头背景 -->
+        <div
+          v-if="config?.columns"
+          class="absolute left-0 top-0 right-0 h-12"
+          :class="config?.appearance?.class?.headerBackground"
+        />
+        <div class="min-w-0 flex-grow flex flex-col">
+          <!-- 表头 -->
           <div
-            class="relative flex"
+            v-if="config?.columns"
+            class="relative z-10 min-w-0 flex h-12"
+            :class="
+              []
+                .concat(
+                  config?.appearance?.border?.visible?.header
+                    ? ['border-b', 'border-border']
+                    : undefined
+                )
+                .concat(config?.appearance?.class?.header)
+            "
+          >
+            <template v-for="(item, index) in config?.columns">
+              <div
+                v-if="
+                  item.isHidden === undefined || item.isHidden(item) !== true
+                "
+                :key="index"
+                class="min-w-0 flex p-2"
+                :class="
+                  []
+                    .concat(
+                      item.basis
+                        ? ['flex-grow', `basis-${item.basis}/24`]
+                        : undefined
+                    )
+                    .concat(config?.appearance?.class?.column)
+                "
+              >
+                <span class="min-w-0 truncate">
+                  <Notice
+                    :payload="{
+                      required:
+                        type === 'input' && item.required !== false && !preview,
+                    }"
+                  >
+                    <a-tooltip class="min-w-0 truncate">
+                      <template #title>
+                        {{ item.label }}
+                      </template>
+                      {{ item.label }}
+                    </a-tooltip>
+                  </Notice>
+                </span>
+              </div>
+            </template>
+          </div>
+          <!-- 表格内容 -->
+          <div
+            class="min-w-0 flex flex-col"
             :class="
               [].concat(
-                // 自定义cell和outter为真才显示边框
-                !config?.cell && config?.appearance?.border?.visible?.outter
-                  ? ['border-border', 'border-1']
+                config?.appearance?.border?.visible?.cell
+                  ? ['divide-y', 'divide-border']
                   : undefined
               )
             "
           >
-            <!-- 表头背景 -->
-            <div
-              v-if="config?.columns"
-              class="absolute left-0 top-0 right-0 h-12"
-              :class="config?.appearance?.class?.headerBackground"
-            />
-            <div class="min-w-0 flex-grow flex flex-col">
-              <!-- 表头 -->
+            <!-- 自定义行组件 -->
+            <template v-if="config?.cell">
+              <div v-for="(item, index) in list" :key="index">
+                <component
+                  :is="config.cell"
+                  :payload="item"
+                  :class="
+                    [].concat(
+                      config?.callback?.select
+                        ? config?.appearance?.class?.select
+                        : undefined
+                    )
+                  "
+                  @click.native="click(item, index)"
+                />
+              </div>
+            </template>
+            <!-- 默认行展示 -->
+            <template v-else>
               <div
-                v-if="config?.columns"
-                class="relative z-10 min-w-0 flex h-12"
+                v-for="(item, index) in list"
+                :key="item.id"
+                class="h-12 flex"
                 :class="
                   []
                     .concat(
-                      config?.appearance?.border?.visible?.header
-                        ? ['border-b', 'border-border']
+                      config?.callback?.select
+                        ? config?.appearance?.class?.select
                         : undefined
                     )
-                    .concat(config?.appearance?.class?.header)
+                    .concat(
+                      config?.appearance?.border?.visible?.column
+                        ? ['divide-x', 'divide-border']
+                        : undefined
+                    )
+                    .concat(config?.appearance?.class?.cell)
                 "
+                @click="click(item, index)"
               >
-                <template v-for="(item, index) in config?.columns">
+                <template v-for="column in config?.columns">
                   <div
                     v-if="
-                      item.isHidden === undefined ||
-                      item.isHidden(item) !== true
+                      column.isHidden === undefined ||
+                      column.isHidden(column) !== true
                     "
-                    :key="index"
+                    :key="column.value"
                     class="min-w-0 flex p-2"
                     :class="
                       []
                         .concat(
-                          item.basis
-                            ? ['flex-grow', `basis-${item.basis}/24`]
+                          column.basis
+                            ? ['flex-grow', `basis-${column.basis}/24`]
                             : undefined
                         )
                         .concat(config?.appearance?.class?.column)
                     "
                   >
-                    <span class="min-w-0 truncate">
-                      <Notice
-                        :payload="{
-                          required:
-                            type === 'input' &&
-                            item.required !== false &&
-                            !preview,
-                        }"
-                      >
-                        <a-tooltip class="min-w-0 truncate">
-                          <template #title>
-                            {{ item.label }}
-                          </template>
-                          {{ item.label }}
-                        </a-tooltip>
-                      </Notice>
-                    </span>
-                  </div>
-                </template>
-              </div>
-              <!-- 表格内容 -->
-              <div
-                class="min-w-0 flex flex-col"
-                :class="
-                  [].concat(
-                    config?.appearance?.border?.visible?.cell
-                      ? ['divide-y', 'divide-border']
-                      : undefined
-                  )
-                "
-              >
-                <!-- 自定义行组件 -->
-                <template v-if="config?.cell">
-                  <div v-for="(item, index) in list" :key="index">
-                    <component
-                      :is="config.cell"
-                      :payload="item"
-                      :class="
-                        [].concat(
-                          config?.callback?.select
-                            ? config?.appearance?.class?.select
-                            : undefined
-                        )
-                      "
-                      @click.native="click(item, index)"
-                    />
-                  </div>
-                </template>
-                <!-- 默认行展示 -->
-                <template v-else>
-                  <div
-                    v-for="(item, index) in list"
-                    :key="item.id"
-                    class="h-12 flex"
-                    :class="
-                      []
-                        .concat(
-                          config?.callback?.select
-                            ? config?.appearance?.class?.select
-                            : undefined
-                        )
-                        .concat(
-                          config?.appearance?.border?.visible?.column
-                            ? ['divide-x', 'divide-border']
-                            : undefined
-                        )
-                        .concat(config?.appearance?.class?.cell)
-                    "
-                    @click="click(item, index)"
-                  >
-                    <template v-for="column in config?.columns">
-                      <div
-                        v-if="
-                          column.isHidden === undefined ||
-                          column.isHidden(column) !== true
-                        "
-                        :key="column.value"
-                        class="min-w-0 flex p-2"
-                        :class="
-                          []
-                            .concat(
-                              column.basis
-                                ? ['flex-grow', `basis-${column.basis}/24`]
-                                : undefined
-                            )
-                            .concat(config?.appearance?.class?.column)
-                        "
-                      >
-                        <!-- 展示型 -->
-                        <template v-if="type === undefined">
-                          <template v-if="column.type === 'index'">
-                            <span class="flex items-center">
-                              {{ (params.page - 1) * params.limit + index + 1 }}
-                            </span>
-                          </template>
-                          <template v-else-if="column.type === 'button'">
-                            <button
-                              type="button"
-                              class="min-w-0 truncate"
-                              @click="column.method(item)"
-                            >
-                              {{
-                                config?.maps?.display &&
-                                config?.maps?.display[column.value]
-                                  ? config?.maps?.display[column.value](
-                                      keypath(item, column.value)
-                                    )
-                                  : keypath(item, column.value)
-                              }}
-                            </button>
-                          </template>
-                        </template>
-                        <!-- 输入型 -->
-                        <template v-else-if="type === 'input'">
-                          <template v-if="column.type === 'text'">
-                            <InputText
-                              v-model="item.models[column.value]"
-                              :disabled="preview || column.disabled"
-                              :preview="preview"
-                              :payload="column"
-                            />
-                          </template>
-                        </template>
-                      </div>
+                    <!-- 展示型 -->
+                    <template v-if="type === undefined">
+                      <template v-if="column.type === 'index'">
+                        <span class="flex items-center">
+                          {{ (params.page - 1) * params.limit + index + 1 }}
+                        </span>
+                      </template>
+                      <template v-else-if="column.type === 'button'">
+                        <button
+                          type="button"
+                          class="min-w-0 truncate"
+                          @click="column.method(item)"
+                        >
+                          {{
+                            config?.maps?.display &&
+                            config?.maps?.display[column.value]
+                              ? config?.maps?.display[column.value](
+                                  keypath(item, column.value)
+                                )
+                              : keypath(item, column.value)
+                          }}
+                        </button>
+                      </template>
+                    </template>
+                    <!-- 输入型 -->
+                    <template v-else-if="type === 'input'">
+                      <template v-if="column.type === 'text'">
+                        <InputText
+                          v-model="item.models[column.value]"
+                          :disabled="preview || column.disabled"
+                          :preview="preview"
+                          :payload="column"
+                        />
+                      </template>
                     </template>
                   </div>
                 </template>
               </div>
-            </div>
+            </template>
           </div>
-        </template>
-        <template v-else-if="components?.empty">
-          <component :is="components?.empty" />
-        </template>
-      </template>
-      <div v-else-if="context.state?.load?.reload === 'reloading'">
-        <component :is="components?.reloading" />
-      </div>
-      <div v-else-if="context.state?.load?.reload === 'reloadError'">
-        <component :is="components?.error" />
+        </div>
       </div>
     </template>
   </DoraemonFragment>
