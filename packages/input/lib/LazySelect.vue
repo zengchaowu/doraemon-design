@@ -20,10 +20,10 @@
       <a-select-option
         v-for="(option, index) in options"
         :key="index"
-        :value="option.value"
+        :value="payload.valueForOption(option)"
       >
         <span>
-          {{ option.label }}
+          {{ payload.labelForOption(option) }}
         </span>
       </a-select-option>
     </a-select>
