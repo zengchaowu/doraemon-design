@@ -12,6 +12,12 @@
 
 <script>
 export default {
+  props: {
+    payload: {
+      type: Object,
+      default: undefined,
+    },
+  },
   data() {
     return {
       startX: undefined,
@@ -54,7 +60,12 @@ export default {
       e.preventDefault();
       e.stopImmediatePropagation();
       const bottom = this.$slots.bottom[0].elm;
-      bottom.style.height = this.startHeight - (e.clientY - this.startY) + "px";
+
+      let height = this.startHeight - (e.clientY - this.startY);
+      if (this.payload?.minHeight) {
+        height = Math.max(this.payload.minHeight, height);
+      }
+      bottom.style.height = height + "px";
     },
     stopDrag() {
       document.documentElement.removeEventListener("mousemove", this.doDrag);

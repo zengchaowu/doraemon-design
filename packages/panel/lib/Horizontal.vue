@@ -12,6 +12,12 @@
 
 <script>
 export default {
+  props: {
+    payload: {
+      type: Object,
+      default: undefined,
+    },
+  },
   data() {
     return {
       startX: undefined,
@@ -54,7 +60,11 @@ export default {
       e.preventDefault();
       e.stopImmediatePropagation();
       const left = this.$slots.left[0].elm;
-      left.style.width = this.startWidth + e.clientX - this.startX + "px";
+      let width = this.startWidth + e.clientX - this.startX;
+      if (this.payload?.minWidth) {
+        width = Math.max(this.payload.minWidth, width);
+      }
+      left.style.width = width + "px";
     },
     stopDrag() {
       document.documentElement.removeEventListener("mousemove", this.doDrag);
