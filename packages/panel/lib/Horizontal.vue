@@ -61,8 +61,8 @@ export default {
       e.stopImmediatePropagation();
       const left = this.$slots.left[0].elm;
       let width = this.startWidth + e.clientX - this.startX;
-      if (this.payload?.minWidth) {
-        width = Math.max(this.payload.minWidth, width);
+      if (this.payload?.leftMinWidth) {
+        width = Math.max(this.payload.leftMinWidth, width);
       }
       left.style.width = width + "px";
     },

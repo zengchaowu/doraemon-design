@@ -62,8 +62,8 @@ export default {
       const bottom = this.$slots.bottom[0].elm;
 
       let height = this.startHeight - (e.clientY - this.startY);
-      if (this.payload?.minHeight) {
-        height = Math.max(this.payload.minHeight, height);
+      if (this.payload?.bottomMinHeight) {
+        height = Math.max(this.payload.bottomMinHeight, height);
       }
       bottom.style.height = height + "px";
     },
