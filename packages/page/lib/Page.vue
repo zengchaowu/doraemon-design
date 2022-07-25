@@ -40,5 +40,9 @@ export default {
       });
     }
   },
+  beforeRouteUpdate(to, from, next) {
+    this.version = Date.now();
+    next();
+  },
 };
 </script>
