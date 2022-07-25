@@ -11,9 +11,11 @@
 </template>
 
 <script>
+import { computed } from "vue";
 export default {
   data() {
     return {
+      version: Date.now(),
       state: undefined,
       dirname: undefined,
       components: undefined,
@@ -21,6 +23,11 @@ export default {
       appearance: {
         container: ["flex-grow", "flex", "flex-col"],
       },
+    };
+  },
+  provide() {
+    return {
+      version: computed(() => this.version),
     };
   },
   created() {
