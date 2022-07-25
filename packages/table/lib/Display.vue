@@ -1,152 +1,148 @@
 <template>
-  <DoraemonFragment ref="fragment" :payload="{ components, request }">
-    <template #load="{ context }">
-      <div
-        class="relative flex"
-        :class="
-          [].concat(
-            // 自定义cell和outter为真才显示边框
-            !config?.cell && config?.appearance?.border?.visible?.outter
-              ? ['border-border', 'border-1']
-              : undefined
-          )
-        "
-      >
-        <!-- 表头背景 -->
-        <div
-          v-if="config?.columns"
-          class="absolute left-0 top-0 right-0 h-12"
-          :class="config?.appearance?.class?.headerBackground"
-        />
-        <div class="min-w-0 flex-grow flex flex-col">
-          <!-- 表头 -->
-          <div
-            v-if="config?.columns"
-            class="relative z-10 min-w-0 flex h-12"
-            :class="
-              []
-                .concat(
-                  config?.appearance?.border?.visible?.header
-                    ? ['border-b', 'border-border']
+  <div class="flex flex-col gap-4">
+    <DoraemonFragment ref="fragment" :payload="{ components, request }">
+      <template #load="{ context }">
+        <div class="relative flex">
+          <div class="min-w-0 flex-grow flex flex-col">
+            <!-- 表头 -->
+            <div
+              v-if="config?.columns"
+              class="relative z-10 min-w-0 flex h-12"
+              :class="
+                []
+                  .concat(
+                    config?.appearance?.border?.visible?.header
+                      ? ['border-b', 'border-border']
+                      : undefined
+                  )
+                  .concat(config?.appearance?.class?.header)
+              "
+            >
+              <template v-for="(item, index) in config?.columns">
+                <div
+                  v-if="
+                    item.isHidden === undefined || item.isHidden(item) !== true
+                  "
+                  :key="index"
+                  class="min-w-0 flex p-2"
+                  :class="
+                    []
+                      .concat(
+                        item.basis
+                          ? ['flex-grow', `basis-${item.basis}/24`]
+                          : undefined
+                      )
+                      .concat(config?.appearance?.class?.column)
+                  "
+                >
+                  <span class="min-w-0 truncate">
+                    <Notice
+                      :payload="{
+                        required:
+                          type === 'input' &&
+                          item.required !== false &&
+                          !preview,
+                      }"
+                    >
+                      <a-tooltip class="min-w-0 truncate">
+                        <template #title>
+                          {{ item.label }}
+                        </template>
+                        {{ item.label }}
+                      </a-tooltip>
+                    </Notice>
+                  </span>
+                </div>
+              </template>
+            </div>
+            <!-- 表格内容 -->
+            <div
+              class="min-w-0 flex flex-col"
+              :class="
+                [].concat(
+                  config?.appearance?.border?.visible?.cell
+                    ? ['divide-y', 'divide-border']
                     : undefined
                 )
-                .concat(config?.appearance?.class?.header)
-            "
-          >
-            <template v-for="(item, index) in config?.columns">
-              <div
-                v-if="
-                  item.isHidden === undefined || item.isHidden(item) !== true
-                "
-                :key="index"
-                class="min-w-0 flex p-2"
-                :class="
-                  []
-                    .concat(
-                      item.basis
-                        ? ['flex-grow', `basis-${item.basis}/24`]
-                        : undefined
-                    )
-                    .concat(config?.appearance?.class?.column)
-                "
-              >
-                <span class="min-w-0 truncate">
-                  <Notice
-                    :payload="{
-                      required:
-                        type === 'input' && item.required !== false && !preview,
-                    }"
-                  >
-                    <a-tooltip class="min-w-0 truncate">
-                      <template #title>
-                        {{ item.label }}
-                      </template>
-                      {{ item.label }}
-                    </a-tooltip>
-                  </Notice>
-                </span>
-              </div>
-            </template>
-          </div>
-          <!-- 表格内容 -->
-          <div
-            class="min-w-0 flex flex-col"
-            :class="
-              [].concat(
-                config?.appearance?.border?.visible?.cell
-                  ? ['divide-y', 'divide-border']
-                  : undefined
-              )
-            "
-          >
-            <!-- 自定义行组件 -->
-            <template v-if="config?.cell">
-              <div v-for="(item, index) in list" :key="index">
-                <component
-                  :is="config.cell"
-                  :payload="item"
-                  :class="
-                    [].concat(
-                      config?.callback?.select
-                        ? config?.appearance?.class?.select
-                        : undefined
-                    )
-                  "
-                  @click.native="click(item, index)"
-                />
-              </div>
-            </template>
-            <!-- 默认行展示 -->
-            <template v-else>
-              <div
-                v-for="(item, index) in list"
-                :key="item.id"
-                class="h-12 flex"
-                :class="
-                  []
-                    .concat(
-                      config?.callback?.select
-                        ? config?.appearance?.class?.select
-                        : undefined
-                    )
-                    .concat(
-                      config?.appearance?.border?.visible?.column
-                        ? ['divide-x', 'divide-border']
-                        : undefined
-                    )
-                    .concat(config?.appearance?.class?.cell)
-                "
-                @click="click(item, index)"
-              >
-                <template v-for="column in config?.columns">
-                  <div
-                    v-if="
-                      column.isHidden === undefined ||
-                      column.isHidden(column) !== true
-                    "
-                    :key="column.value"
-                    class="min-w-0 flex p-2"
+              "
+            >
+              <!-- 自定义行组件 -->
+              <template v-if="config?.cell">
+                <div v-for="(item, index) in list" :key="index">
+                  <component
+                    :is="config.cell"
+                    :payload="item"
                     :class="
-                      []
-                        .concat(
-                          column.basis
-                            ? ['flex-grow', `basis-${column.basis}/24`]
-                            : undefined
-                        )
-                        .concat(config?.appearance?.class?.column)
+                      [].concat(
+                        config?.callback?.select
+                          ? config?.appearance?.class?.select
+                          : undefined
+                      )
                     "
-                  >
-                    <!-- 展示型 -->
-                    <template v-if="type === undefined">
-                      <template v-if="column.type === 'index'">
-                        <span class="flex items-center">
-                          {{ (params.page - 1) * params.limit + index + 1 }}
-                        </span>
-                      </template>
-                      <template v-else-if="column.type === 'text'">
-                        <span class="min-w-0 truncate flex items-center">
-                          <a-tooltip class="min-w-0 truncate">
-                            <template #title>
+                    @click.native="click(item, index)"
+                  />
+                </div>
+              </template>
+              <!-- 默认行展示 -->
+              <template v-else>
+                <div
+                  v-for="(item, index) in list"
+                  :key="item.id"
+                  class="h-12 flex"
+                  :class="
+                    []
+                      .concat(
+                        config?.callback?.select
+                          ? config?.appearance?.class?.select
+                          : undefined
+                      )
+                      .concat(
+                        config?.appearance?.border?.visible?.column
+                          ? ['divide-x', 'divide-border']
+                          : undefined
+                      )
+                      .concat(config?.appearance?.class?.cell)
+                  "
+                  @click="click(item, index)"
+                >
+                  <template v-for="column in config?.columns">
+                    <div
+                      v-if="
+                        column.isHidden === undefined ||
+                        column.isHidden(column) !== true
+                      "
+                      :key="column.value"
+                      class="min-w-0 flex p-2"
+                      :class="
+                        []
+                          .concat(
+                            column.basis
+                              ? ['flex-grow', `basis-${column.basis}/24`]
+                              : undefined
+                          )
+                          .concat(config?.appearance?.class?.column)
+                      "
+                    >
+                      <!-- 展示型 -->
+                      <template v-if="type === undefined">
+                        <template v-if="column.type === 'index'">
+                          <span class="flex items-center">
+                            {{ (params.page - 1) * params.limit + index + 1 }}
+                          </span>
+                        </template>
+                        <template v-else-if="column.type === 'text'">
+                          <span class="min-w-0 truncate flex items-center">
+                            <a-tooltip class="min-w-0 truncate">
+                              <template #title>
+                                {{
+                                  config?.maps?.display &&
+                                  config?.maps?.display[column.value]
+                                    ? config?.maps?.display[column.value](
+                                        keypath(item, column.value)
+                                      )
+                                    : keypath(item, column.value)
+                                }}
+                              </template>
                               {{
                                 config?.maps?.display &&
                                 config?.maps?.display[column.value]
@@ -155,7 +151,15 @@
                                     )
                                   : keypath(item, column.value)
                               }}
-                            </template>
+                            </a-tooltip>
+                          </span>
+                        </template>
+                        <template v-else-if="column.type === 'file'">
+                          <button
+                            type="button"
+                            class="min-w-0 truncate"
+                            @click="column.method(item)"
+                          >
                             {{
                               config?.maps?.display &&
                               config?.maps?.display[column.value]
@@ -164,37 +168,37 @@
                                   )
                                 : keypath(item, column.value)
                             }}
-                          </a-tooltip>
-                        </span>
-                      </template>
-                      <template v-else-if="column.type === 'file'">
-                        <button
-                          type="button"
-                          class="min-w-0 truncate"
-                          @click="column.method(item)"
-                        >
-                          {{
-                            config?.maps?.display &&
-                            config?.maps?.display[column.value]
-                              ? config?.maps?.display[column.value](
-                                  keypath(item, column.value)
-                                )
-                              : keypath(item, column.value)
-                          }}
-                        </button>
-                      </template>
-                      <template v-else-if="column.type === 'image'">
-                        <button
-                          class="min-w-0 truncate flex items-center"
-                          @click="previewImage(keypath(item, column.value))"
-                        >
-                          <a-tooltip class="min-w-0 truncate">
-                            <template #title>
-                              <img
-                                :src="keypath(item, column.value)"
-                                class="w-30 h-30 object-cover"
-                              />
-                            </template>
+                          </button>
+                        </template>
+                        <template v-else-if="column.type === 'image'">
+                          <button
+                            class="min-w-0 truncate flex items-center"
+                            @click="previewImage(keypath(item, column.value))"
+                          >
+                            <a-tooltip class="min-w-0 truncate">
+                              <template #title>
+                                <img
+                                  :src="keypath(item, column.value)"
+                                  class="w-30 h-30 object-cover"
+                                />
+                              </template>
+                              {{
+                                config?.maps?.display &&
+                                config?.maps?.display[column.value]
+                                  ? config?.maps?.display[column.value](
+                                      keypath(item, column.value)
+                                    )
+                                  : keypath(item, column.value)
+                              }}
+                            </a-tooltip>
+                          </button>
+                        </template>
+                        <template v-else-if="column.type === 'button'">
+                          <button
+                            type="button"
+                            class="min-w-0 truncate"
+                            @click="column.method(item)"
+                          >
                             {{
                               config?.maps?.display &&
                               config?.maps?.display[column.value]
@@ -203,370 +207,203 @@
                                   )
                                 : keypath(item, column.value)
                             }}
-                          </a-tooltip>
-                        </button>
+                          </button>
+                        </template>
                       </template>
-                      <template v-else-if="column.type === 'button'">
-                        <button
-                          type="button"
-                          class="min-w-0 truncate"
-                          @click="column.method(item)"
-                        >
-                          {{
-                            config?.maps?.display &&
-                            config?.maps?.display[column.value]
-                              ? config?.maps?.display[column.value](
-                                  keypath(item, column.value)
-                                )
-                              : keypath(item, column.value)
-                          }}
-                        </button>
+                      <!-- 输入型 -->
+                      <template v-else-if="type === 'input'">
+                        <template v-if="column.type === 'text'">
+                          <InputText
+                            v-model="item.models[column.value]"
+                            :disabled="preview || column.disabled"
+                            :preview="preview"
+                            :payload="column"
+                          />
+                        </template>
+                        <template v-if="column.type === 'number'">
+                          <InputNumber
+                            v-model="item.models[column.value]"
+                            :disabled="preview || column.disabled"
+                            :preview="preview"
+                            :payload="column"
+                          />
+                        </template>
+                        <template v-else-if="column.type === 'file'">
+                          <InputFile
+                            v-model="item.models[column.value]"
+                            :disabled="preview || column.disabled"
+                            :preview="preview"
+                            :payload="{
+                              ...column,
+                              method: (file) => {
+                                item.models[column.value.replace('_arr', '')] =
+                                  file.download;
+                                item.models[column.value] = file;
+                                $forceUpdate();
+                                handleListChange();
+                              },
+                            }"
+                          />
+                        </template>
+                        <template v-else-if="column.type === 'date'">
+                          <InputDate
+                            v-model="item.models[column.value]"
+                            :disabled="preview || column.disabled"
+                            :preview="preview"
+                            :payload="column"
+                            class="items-center"
+                          />
+                        </template>
+                        <template v-else-if="column.type === 'material'">
+                          <InputMaterial
+                            v-model="item.models[column.value]"
+                            :disabled="preview || column.disabled"
+                            :preview="preview"
+                            :payload="column"
+                          />
+                        </template>
+                        <template v-else-if="column.type === 'supplier'">
+                          <InputSupplier
+                            v-model="item.models[column.value]"
+                            :disabled="preview || column.disabled"
+                            :preview="preview"
+                            :payload="column"
+                          />
+                        </template>
                       </template>
-                    </template>
-                    <!-- 输入型 -->
-                    <template v-else-if="type === 'input'">
-                      <template v-if="column.type === 'text'">
-                        <InputText
-                          v-model="item.models[column.value]"
-                          :disabled="preview || column.disabled"
-                          :preview="preview"
-                          :payload="column"
-                        />
-                      </template>
-                      <template v-if="column.type === 'number'">
-                        <InputNumber
-                          v-model="item.models[column.value]"
-                          :disabled="preview || column.disabled"
-                          :preview="preview"
-                          :payload="column"
-                        />
-                      </template>
-                      <template v-else-if="column.type === 'file'">
-                        <InputFile
-                          v-model="item.models[column.value]"
-                          :disabled="preview || column.disabled"
-                          :preview="preview"
-                          :payload="{
-                            ...column,
-                            method: (file) => {
-                              item.models[column.value.replace('_arr', '')] =
-                                file.download;
-                              item.models[column.value] = file;
-                              $forceUpdate();
-                              handleListChange();
-                            },
-                          }"
-                        />
-                      </template>
-                      <template v-else-if="column.type === 'date'">
-                        <InputDate
-                          v-model="item.models[column.value]"
-                          :disabled="preview || column.disabled"
-                          :preview="preview"
-                          :payload="column"
-                          class="items-center"
-                        />
-                      </template>
-                      <template v-else-if="column.type === 'material'">
-                        <InputMaterial
-                          v-model="item.models[column.value]"
-                          :disabled="preview || column.disabled"
-                          :preview="preview"
-                          :payload="column"
-                        />
-                      </template>
-                      <template v-else-if="column.type === 'supplier'">
-                        <InputSupplier
-                          v-model="item.models[column.value]"
-                          :disabled="preview || column.disabled"
-                          :preview="preview"
-                          :payload="column"
-                        />
-                      </template>
-                    </template>
-                  </div>
-                </template>
-              </div>
-            </template>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
           </div>
-        </div>
-        <!-- 操作列表 -->
-        <div
-          v-if="config?.actions && !preview"
-          class="flex-none flex flex-col"
-          :class="
-            [].concat(
-              config?.appearance?.border?.visible?.column
-                ? ['border-l', 'border-border']
-                : undefined
-            )
-          "
-        >
-          <span
-            class="relative z-10 flex h-12"
-            :class="
-              []
-                .concat(
-                  config?.appearance?.border?.visible?.header
-                    ? ['border-b', 'border-border']
-                    : undefined
-                )
-                .concat(config?.appearance?.class?.header)
-            "
-          >
-            <span
-              class="min-w-0 flex p-2"
-              :class="[].concat(config?.appearance?.class?.column)"
-            >
-              {{ config?.appearance?.label?.action }}
-            </span>
-          </span>
+          <!-- 操作列表 -->
           <div
-            class="flex flex-col"
+            v-if="config?.actions && !preview"
+            class="flex-none flex flex-col"
             :class="
               [].concat(
-                config?.appearance?.border?.visible?.cell
-                  ? ['divide-y', 'divide-border']
+                config?.appearance?.border?.visible?.column
+                  ? ['border-l', 'border-border']
                   : undefined
               )
             "
           >
-            <div
-              v-for="(item, index) in list"
-              :key="item.id"
-              class="h-12 flex items-center justify-center gap-2 px-2"
-              :class="[].concat(config?.appearance?.class?.column)"
+            <span
+              class="relative z-10 flex h-12"
+              :class="
+                []
+                  .concat(
+                    config?.appearance?.border?.visible?.header
+                      ? ['border-b', 'border-border']
+                      : undefined
+                  )
+                  .concat(config?.appearance?.class?.header)
+              "
             >
-              <template v-for="action in config?.actions">
-                <template v-if="action.display(item, index)">
-                  <ButtonAction
-                    :key="action.id"
-                    :payload="action"
-                    @click="action.method(item, index)"
-                  >
-                    {{ action.label(item, index) }}
-                  </ButtonAction>
+              <span
+                class="min-w-0 flex p-2"
+                :class="[].concat(config?.appearance?.class?.column)"
+              >
+                {{ config?.appearance?.label?.action }}
+              </span>
+            </span>
+            <div
+              class="flex flex-col"
+              :class="
+                [].concat(
+                  config?.appearance?.border?.visible?.cell
+                    ? ['divide-y', 'divide-border']
+                    : undefined
+                )
+              "
+            >
+              <div
+                v-for="(item, index) in list"
+                :key="item.id"
+                class="h-12 flex items-center justify-center gap-2 px-2"
+                :class="[].concat(config?.appearance?.class?.column)"
+              >
+                <template v-for="action in config?.actions">
+                  <template v-if="action.display(item, index)">
+                    <ButtonAction
+                      :key="action.id"
+                      :payload="action"
+                      @click="action.method(item, index)"
+                    >
+                      {{ action.label(item, index) }}
+                    </ButtonAction>
+                  </template>
                 </template>
-              </template>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <template
-        v-if="type === undefined && config?.appearance?.visible?.pagination"
-      >
-        <!-- <a-affix :offset-bottom="10"> -->
-        <div class="flex px-4 pb-4 justify-end">
-          <a-pagination
-            v-model="params.page"
-            show-size-changer
-            :total="count"
-            :page-size.sync="params.limit"
-          />
-        </div>
-        <!-- </a-affix> -->
       </template>
-    </template>
-  </DoraemonFragment>
+    </DoraemonFragment>
+    <div class="flex justify-end">
+      <a-pagination
+        :current="models.local.page"
+        :page-size="models.local.page_size"
+        :total="models.local.count"
+        show-size-changer
+        @change="onChange"
+        @showSizeChange="onShowSizeChange"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import isNil from "lodash.isnil";
-import { get as keypath } from "object-path";
 import DoraemonFragment from "@doraemon-design/page/lib/Fragment.vue";
 
 export default {
   components: { DoraemonFragment },
-  model: {
-    prop: "value",
-    event: "update",
-  },
-  props: {
-    preview: {
-      type: Boolean,
-      default: false,
-    },
-    // 负载对象，此对象用来修改请求的请求体，请求体会混合这个对象。
-    // 用途：外部Filter条件变化。所以这个对象会被watch。
-    payload: {
-      type: Object,
-      default: undefined,
-    },
-  },
   data() {
     return {
-      // 设置HTTP请求
-      http: {
-        // 自定义请求头
-        headers: undefined,
-        // 自定义处理
-        handler: {
-          // 自定义处理请求结果
-          result: {
-            success: undefined,
-          },
+      models: {
+        query: undefined,
+        local: {
+          page: parseInt(this.$route.query.page ?? 1),
+          page_size: parseInt(this.$route.query.page_size ?? 10),
+          count: 0,
         },
       },
-      // 表格的类型，默认是展示型，'input'代表编辑型
-      type: undefined,
-      // 请求地址
-      url: undefined,
-      // 状态
-      state: undefined,
-      // 双向数据绑定，暂时只用于config.buttons中的部分有状态组件
-      models: {},
-      // 弹窗
-      modals: {},
-      // 配置，用于动态生成页面。
-      config: {
-        // 回掉函数
-        callback: {
-          select: undefined,
-        },
-        // 列定义 { label:列名，value:列对应的参数名（展示时可使用content.content.content跨层读取），用于双向绑定，type：列类型。basis：宽比例，总12格。}
-        columns: undefined,
-        // 自定义Cell
-        cell: undefined,
-        // 将对状态进行转换，例如从数字转换为中文。 { state: (value) => { return value}}
-        maps: {
-          // 展示的时候，数据转换
-          display: undefined,
-          // v-model的数据转换，例如数据提交时只提交model中某一项
-          model: undefined,
-        },
-        // 所有操作。{id:唯一标识，display:(item)=>{return true}}是否展示, label: (item)=>{return label}展示文字。method: (item)=>{}点击动作
-        actions: undefined,
-        // 外观
-        appearance: {
-          // 文本
-          label: {
-            action: "操作",
-          },
-          // 分页是否能用
-          visible: {
-            pagination: true,
-          },
-          // 骨架屏
-          skeleton: {
-            rows: undefined,
-          },
-          // 边框
-          border: {
-            visible: {
-              outter: true,
-              header: true,
-              column: true,
-              cell: true,
-            },
-          },
-          // 自定义class
-          class: {
-            header: ["items-center", "justify-center", "text-gray-500"],
-            headerBackground: undefined,
-            cell: undefined,
-            select: ["hover:bg-panel-background", "cursor-pointer"],
-            column: ["justify-center"],
-          },
-        },
-      },
-      // 参数，会被混入到请求中。可在此处放固定参数。
-      params: {
-        // page和limit同时被分页指示器双向绑定。
-        page: 1,
-        limit: 10,
-      },
-      // 总数，主要用于分页。
-      count: undefined,
-      // 当前显示的列表
-      list: undefined,
     };
   },
   watch: {
-    // 分页点击。
-    "params.page"() {
-      this.reloadData();
-    },
-    // 分页大小变化时。
-    "params.limit"() {
-      this.reloadData();
-    },
-    // 外部filter对象发生变化
-    payload: {
-      immediate: true,
-      handler(newValue, oldValue) {
-        if (isNil(newValue) && isNil(oldValue)) {
-          return;
-        }
-        this.resetPage();
+    "$route.query": {
+      deep: true,
+      handler() {
+        this.reloadData();
       },
     },
   },
+  mounted() {
+    this.reloadData();
+  },
   methods: {
-    keypath,
-    resetPage() {
-      this.params.page = 1;
-      this.reloadData();
-    },
     reloadData() {
-      if (this.type === "input") {
-        // 初始化列表
-        this.list = [];
-        this.value?.forEach((item) => {
-          this.appendRow(item);
-        });
-        if (this.list.length === 0) {
-          this.appendRow();
-        }
-      } else {
-        if (!this.url) return;
-        // 清空数据，保证出现加载页面
-        this.list = undefined;
-        this.debounceReloadData();
-      }
+      this.$refs.fragment.request.load.reloadData();
     },
-    getRequestData() {
-      // 混合models,payload和params
-      let data = Object.assign({}, this.params, this.models, this.payload);
-      data = snakeCase(data);
-      return data;
-    },
-    debounceReloadData() {
-      this.state = "loading";
-      this.$axios({
-        method: "post",
-        headers: this.http.headers,
-        url: this.url,
-        data: this.getRequestData(),
-      })
-        .then((res) => {
-          this.state = "success";
-          const { code, data, msg } = res.data || {};
-          if (code === 0) {
-            if (this.http.handler.result.success) {
-              this.http.handler.result.success(data);
-            } else {
-              const { count, list } = data;
-              this.count = count;
-              this.list = list;
-              if (this.list.length === 0 && this.params.page > 1) {
-                this.params.page = this.params.page - 1;
-              }
-            }
-          } else {
-            this.$message.error(msg);
-            if (code === 403) {
-              this.$auth.logout();
-            }
-          }
-        })
-        .catch((e) => {
-          this.state = "error";
-        });
-    },
-    click(item, index) {
+    select(item, index) {
       if (this.config?.callback?.select) {
         this.config?.callback?.select(item, index);
       }
+    },
+    onChange(page) {
+      this.models.local.page = page;
+      const query = Object.assign({}, this.$route.query, {
+        page: this.models.local.page,
+      });
+      this.$router.push({ path: this.$route.path, query });
+    },
+    onShowSizeChange(pageSize) {
+      this.models.local.page_size = pageSize;
+      const query = Object.assign({}, this.$route.query, {
+        page_size: this.models.local.page_size,
+      });
+      this.$router.push({ path: this.$route.path, query });
     },
   },
 };
