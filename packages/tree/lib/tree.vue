@@ -26,7 +26,7 @@
       >
         <img
           v-if="payload?.icon"
-          :src="'/icons' + payload?.icon + '.png'"
+          :src="perference?.srcForNode(payload)"
           :style="{
             width: '18px',
             height: '18px',
@@ -46,7 +46,7 @@
         }"
       >
         <img
-          src="/icons/arrow.png"
+          :src="perference?.arrowForNode(payload)"
           :style="{
             width: '18px',
             height: '18px',
