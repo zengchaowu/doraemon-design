@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" class="absolute inset-0 flex">
+  <div ref="container">
     <template v-if="payload">
       <template v-if="context === 'load'">
         <template v-if="state.load === 'success'">

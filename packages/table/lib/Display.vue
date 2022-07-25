@@ -143,6 +143,69 @@
                           {{ (params.page - 1) * params.limit + index + 1 }}
                         </span>
                       </template>
+                      <template v-else-if="column.type === 'text'">
+                        <span class="min-w-0 truncate flex items-center">
+                          <a-tooltip class="min-w-0 truncate">
+                            <template #title>
+                              {{
+                                config?.maps?.display &&
+                                config?.maps?.display[column.value]
+                                  ? config?.maps?.display[column.value](
+                                      keypath(item, column.value)
+                                    )
+                                  : keypath(item, column.value)
+                              }}
+                            </template>
+                            {{
+                              config?.maps?.display &&
+                              config?.maps?.display[column.value]
+                                ? config?.maps?.display[column.value](
+                                    keypath(item, column.value)
+                                  )
+                                : keypath(item, column.value)
+                            }}
+                          </a-tooltip>
+                        </span>
+                      </template>
+                      <template v-else-if="column.type === 'file'">
+                        <button
+                          type="button"
+                          class="min-w-0 truncate"
+                          @click="column.method(item)"
+                        >
+                          {{
+                            config?.maps?.display &&
+                            config?.maps?.display[column.value]
+                              ? config?.maps?.display[column.value](
+                                  keypath(item, column.value)
+                                )
+                              : keypath(item, column.value)
+                          }}
+                        </button>
+                      </template>
+                      <template v-else-if="column.type === 'image'">
+                        <button
+                          class="min-w-0 truncate flex items-center"
+                          @click="previewImage(keypath(item, column.value))"
+                        >
+                          <a-tooltip class="min-w-0 truncate">
+                            <template #title>
+                              <img
+                                :src="keypath(item, column.value)"
+                                class="w-30 h-30 object-cover"
+                              />
+                            </template>
+                            {{
+                              config?.maps?.display &&
+                              config?.maps?.display[column.value]
+                                ? config?.maps?.display[column.value](
+                                    keypath(item, column.value)
+                                  )
+                                : keypath(item, column.value)
+                            }}
+                          </a-tooltip>
+                        </button>
+                      </template>
                       <template v-else-if="column.type === 'button'">
                         <button
                           type="button"
@@ -170,6 +233,56 @@
                           :payload="column"
                         />
                       </template>
+                      <template v-if="column.type === 'number'">
+                        <InputNumber
+                          v-model="item.models[column.value]"
+                          :disabled="preview || column.disabled"
+                          :preview="preview"
+                          :payload="column"
+                        />
+                      </template>
+                      <template v-else-if="column.type === 'file'">
+                        <InputFile
+                          v-model="item.models[column.value]"
+                          :disabled="preview || column.disabled"
+                          :preview="preview"
+                          :payload="{
+                            ...column,
+                            method: (file) => {
+                              item.models[column.value.replace('_arr', '')] =
+                                file.download;
+                              item.models[column.value] = file;
+                              $forceUpdate();
+                              handleListChange();
+                            },
+                          }"
+                        />
+                      </template>
+                      <template v-else-if="column.type === 'date'">
+                        <InputDate
+                          v-model="item.models[column.value]"
+                          :disabled="preview || column.disabled"
+                          :preview="preview"
+                          :payload="column"
+                          class="items-center"
+                        />
+                      </template>
+                      <template v-else-if="column.type === 'material'">
+                        <InputMaterial
+                          v-model="item.models[column.value]"
+                          :disabled="preview || column.disabled"
+                          :preview="preview"
+                          :payload="column"
+                        />
+                      </template>
+                      <template v-else-if="column.type === 'supplier'">
+                        <InputSupplier
+                          v-model="item.models[column.value]"
+                          :disabled="preview || column.disabled"
+                          :preview="preview"
+                          :payload="column"
+                        />
+                      </template>
                     </template>
                   </div>
                 </template>
@@ -177,7 +290,82 @@
             </template>
           </div>
         </div>
+        <!-- 操作列表 -->
+        <div
+          v-if="config?.actions && !preview"
+          class="flex-none flex flex-col"
+          :class="
+            [].concat(
+              config?.appearance?.border?.visible?.column
+                ? ['border-l', 'border-border']
+                : undefined
+            )
+          "
+        >
+          <span
+            class="relative z-10 flex h-12"
+            :class="
+              []
+                .concat(
+                  config?.appearance?.border?.visible?.header
+                    ? ['border-b', 'border-border']
+                    : undefined
+                )
+                .concat(config?.appearance?.class?.header)
+            "
+          >
+            <span
+              class="min-w-0 flex p-2"
+              :class="[].concat(config?.appearance?.class?.column)"
+            >
+              {{ config?.appearance?.label?.action }}
+            </span>
+          </span>
+          <div
+            class="flex flex-col"
+            :class="
+              [].concat(
+                config?.appearance?.border?.visible?.cell
+                  ? ['divide-y', 'divide-border']
+                  : undefined
+              )
+            "
+          >
+            <div
+              v-for="(item, index) in list"
+              :key="item.id"
+              class="h-12 flex items-center justify-center gap-2 px-2"
+              :class="[].concat(config?.appearance?.class?.column)"
+            >
+              <template v-for="action in config?.actions">
+                <template v-if="action.display(item, index)">
+                  <ButtonAction
+                    :key="action.id"
+                    :payload="action"
+                    @click="action.method(item, index)"
+                  >
+                    {{ action.label(item, index) }}
+                  </ButtonAction>
+                </template>
+              </template>
+            </div>
+          </div>
+        </div>
       </div>
+      <template
+        v-if="type === undefined && config?.appearance?.visible?.pagination"
+      >
+        <!-- <a-affix :offset-bottom="10"> -->
+        <div class="flex px-4 pb-4 justify-end">
+          <a-pagination
+            v-model="params.page"
+            show-size-changer
+            :total="count"
+            :page-size.sync="params.limit"
+          />
+        </div>
+        <!-- </a-affix> -->
+      </template>
     </template>
   </DoraemonFragment>
 </template>
@@ -186,6 +374,7 @@
 import isNil from "lodash.isnil";
 import { get as keypath } from "object-path";
 import DoraemonFragment from "@doraemon-design/page/lib/Fragment.vue";
+
 export default {
   components: { DoraemonFragment },
   model: {
@@ -193,10 +382,9 @@ export default {
     event: "update",
   },
   props: {
-    // 双向数据绑定，用户初始化列表和返回编辑后的数据。(此处只有input使用，并且不响应value的变化。)
-    value: {
-      type: Array,
-      default: undefined,
+    preview: {
+      type: Boolean,
+      default: false,
     },
     // 负载对象，此对象用来修改请求的请求体，请求体会混合这个对象。
     // 用途：外部Filter条件变化。所以这个对象会被watch。
@@ -207,16 +395,45 @@ export default {
   },
   data() {
     return {
+      // 设置HTTP请求
+      http: {
+        // 自定义请求头
+        headers: undefined,
+        // 自定义处理
+        handler: {
+          // 自定义处理请求结果
+          result: {
+            success: undefined,
+          },
+        },
+      },
+      // 表格的类型，默认是展示型，'input'代表编辑型
+      type: undefined,
+      // 请求地址
+      url: undefined,
+      // 状态
+      state: undefined,
       // 双向数据绑定，暂时只用于config.buttons中的部分有状态组件
       models: {},
       // 弹窗
       modals: {},
       // 配置，用于动态生成页面。
       config: {
+        // 回掉函数
+        callback: {
+          select: undefined,
+        },
         // 列定义 { label:列名，value:列对应的参数名（展示时可使用content.content.content跨层读取），用于双向绑定，type：列类型。basis：宽比例，总12格。}
         columns: undefined,
         // 自定义Cell
         cell: undefined,
+        // 将对状态进行转换，例如从数字转换为中文。 { state: (value) => { return value}}
+        maps: {
+          // 展示的时候，数据转换
+          display: undefined,
+          // v-model的数据转换，例如数据提交时只提交model中某一项
+          model: undefined,
+        },
         // 所有操作。{id:唯一标识，display:(item)=>{return true}}是否展示, label: (item)=>{return label}展示文字。method: (item)=>{}点击动作
         actions: undefined,
         // 外观
@@ -232,6 +449,23 @@ export default {
           // 骨架屏
           skeleton: {
             rows: undefined,
+          },
+          // 边框
+          border: {
+            visible: {
+              outter: true,
+              header: true,
+              column: true,
+              cell: true,
+            },
+          },
+          // 自定义class
+          class: {
+            header: ["items-center", "justify-center", "text-gray-500"],
+            headerBackground: undefined,
+            cell: undefined,
+            select: ["hover:bg-panel-background", "cursor-pointer"],
+            column: ["justify-center"],
           },
         },
       },
@@ -263,43 +497,13 @@ export default {
         if (isNil(newValue) && isNil(oldValue)) {
           return;
         }
-        this.resetData();
+        this.resetPage();
       },
     },
-    // 坚挺list变化，这里主要用于编辑表格内容变化自动同步到外层组件。
-    list: {
-      handler() {
-        this.handleListChange();
-      },
-      deep: true,
-    },
-  },
-  mounted() {
-    this.$emit("mounted");
   },
   methods: {
-    handleListChange() {
-      if (this.type !== "input") {
-        return;
-      }
-      let validList = this.list?.filter((row) => {
-        for (const item of this.config?.columns) {
-          if (item.required !== false) {
-            if (keypath(row.models, item.value) === undefined) {
-              return false;
-            }
-          }
-        }
-        return true;
-      });
-      validList = validList?.map((row) => row.models);
-      if (validList?.length === 0) {
-        validList = undefined;
-      }
-      this.$emit("update", validList);
-    },
     keypath,
-    resetData() {
+    resetPage() {
       this.params.page = 1;
       this.reloadData();
     },
@@ -320,19 +524,49 @@ export default {
         this.debounceReloadData();
       }
     },
-    debounceReloadData() {},
+    getRequestData() {
+      // 混合models,payload和params
+      let data = Object.assign({}, this.params, this.models, this.payload);
+      data = snakeCase(data);
+      return data;
+    },
+    debounceReloadData() {
+      this.state = "loading";
+      this.$axios({
+        method: "post",
+        headers: this.http.headers,
+        url: this.url,
+        data: this.getRequestData(),
+      })
+        .then((res) => {
+          this.state = "success";
+          const { code, data, msg } = res.data || {};
+          if (code === 0) {
+            if (this.http.handler.result.success) {
+              this.http.handler.result.success(data);
+            } else {
+              const { count, list } = data;
+              this.count = count;
+              this.list = list;
+              if (this.list.length === 0 && this.params.page > 1) {
+                this.params.page = this.params.page - 1;
+              }
+            }
+          } else {
+            this.$message.error(msg);
+            if (code === 403) {
+              this.$auth.logout();
+            }
+          }
+        })
+        .catch((e) => {
+          this.state = "error";
+        });
+    },
     click(item, index) {
       if (this.config?.callback?.select) {
         this.config?.callback?.select(item, index);
       }
-    },
-    // 删除某一条
-    removeRow(index) {
-      this.list.splice(index, 1);
-    },
-    // 在尾部追加
-    appendRow(models = {}) {
-      this.list.push({ models });
     },
   },
 };
