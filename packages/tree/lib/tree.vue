@@ -26,7 +26,7 @@
       >
         <img
           v-if="payload?.icon"
-          :src="'/icons' + payload?.icon + '.svg'"
+          :src="'/icons' + payload?.icon + '.png'"
           :style="{
             width: '18px',
             height: '18px',
@@ -46,7 +46,7 @@
         }"
       >
         <img
-          src="/icons/arrow.svg"
+          src="/icons/arrow.png"
           :style="{
             width: '18px',
             height: '18px',
