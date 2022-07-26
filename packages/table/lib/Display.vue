@@ -3,7 +3,7 @@
     <DoraemonFragment
       ref="fragment"
       :payload="{ components, request }"
-      class="flex flex-col"
+      class="flex flex-col min-h-30 relative"
     >
       <template #load="{ context }">
         <!-- 表头 -->
@@ -48,7 +48,7 @@
         </div>
       </template>
     </DoraemonFragment>
-    <div class="flex justify-end">
+    <div v-if="models?.local?.count > 0" class="flex justify-end">
       <a-pagination
         :current="models.local.page"
         :page-size="models.local.page_size"
