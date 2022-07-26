@@ -5,8 +5,44 @@
       "path": "."
     },
     {
+      "name": "📦 @doraemon-design/button",
+      "path": "packages/button"
+    },
+    {
       "name": "📦 @doraemon-design/input",
       "path": "packages/input"
+    },
+    {
+      "name": "📦 @doraemon-design/list",
+      "path": "packages/list"
+    },
+    {
+      "name": "📦 @doraemon-design/lottie",
+      "path": "packages/lottie"
+    },
+    {
+      "name": "📦 @doraemon-design/modal",
+      "path": "packages/modal"
+    },
+    {
+      "name": "📦 @doraemon-design/page",
+      "path": "packages/page"
+    },
+    {
+      "name": "📦 @doraemon-design/panel",
+      "path": "packages/panel"
+    },
+    {
+      "name": "📦 @doraemon-design/table",
+      "path": "packages/table"
+    },
+    {
+      "name": "📦 @doraemon-design/tabs",
+      "path": "packages/tabs"
+    },
+    {
+      "name": "📦 @doraemon-design/tree",
+      "path": "packages/tree"
     }
   ],
   "settings": {}

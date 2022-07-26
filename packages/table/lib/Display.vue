@@ -13,7 +13,7 @@
             :key="index"
             class="flex-grow basis-1"
           >
-            <div class="min-w-0 flex p-2">
+            <div class="min-w-0 flex justify-center p-2">
               <span class="min-w-0 truncate">
                 {{ column.label }}
               </span>
@@ -23,24 +23,15 @@
         <!-- 表格内容 -->
         <div class="min-w-0 flex flex-col">
           <div
-            v-for="(item, index) in list"
-            :key="item.id"
-            class="h-12 flex"
-            @click="select(item, index)"
+            v-for="(row, index) in context.data.load"
+            :key="index"
+            class="flex"
+            @click="select(row, index)"
           >
             <div
-              v-for="column in config?.columns"
+              v-for="column in columns"
               :key="column.value"
               class="min-w-0 flex p-2"
-              :class="
-                []
-                  .concat(
-                    column.basis
-                      ? ['flex-grow', `basis-${column.basis}/24`]
-                      : undefined
-                  )
-                  .concat(config?.appearance?.class?.column)
-              "
             >
               <template v-if="column.type === 'index'">
                 <span class="flex items-center">
@@ -49,26 +40,7 @@
               </template>
               <template v-else-if="column.type === 'text'">
                 <span class="min-w-0 truncate flex items-center">
-                  <a-tooltip class="min-w-0 truncate">
-                    <template #title>
-                      {{
-                        config?.maps?.display &&
-                        config?.maps?.display[column.value]
-                          ? config?.maps?.display[column.value](
-                              keypath(item, column.value)
-                            )
-                          : keypath(item, column.value)
-                      }}
-                    </template>
-                    {{
-                      config?.maps?.display &&
-                      config?.maps?.display[column.value]
-                        ? config?.maps?.display[column.value](
-                            keypath(item, column.value)
-                          )
-                        : keypath(item, column.value)
-                    }}
-                  </a-tooltip>
+                  {{ keypath(row, column.value) }}
                 </span>
               </template>
             </div>
