@@ -21,7 +21,11 @@ export default {
   },
   created() {
     const name = camelcase(this.payload.type, { pascalCase: true });
-    this.component = require(`./${name}.vue`).default;
+    if (name === "custom") {
+      this.component = this.payload.component;
+    } else {
+      this.component = require(`./${name}.vue`).default;
+    }
   },
 };
 </script>
