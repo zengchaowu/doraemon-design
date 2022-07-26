@@ -28,12 +28,12 @@
 </template>
 
 <script>
-import parseSelect from '../functions/parseSelect.js'
-import _interface from '../mixin/input.js'
+import parseSelect from "../functions/parseSelect.js";
+import mixinInput from "../mixin/input.js";
 export default {
-  mixins: [_interface],
+  mixins: [mixinInput],
   methods: {
     parseSelect,
   },
-}
+};
 </script>
