@@ -9,7 +9,6 @@
   </div>
   <a-select
     v-else
-    class="w-32"
     :value="value"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
