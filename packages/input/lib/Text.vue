@@ -7,7 +7,7 @@
       {{ value }}
     </Tooltip>
   </div>
-  <input
+  <a-input
     v-else
     :value="value"
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
