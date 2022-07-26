@@ -3,7 +3,7 @@
     <DoraemonFragment
       ref="fragment"
       :payload="{ components, request }"
-      class="flex flex-col min-h-30 relative"
+      class="flex flex-col min-h-36 relative"
     >
       <template #load="{ context }">
         <!-- 表头 -->
