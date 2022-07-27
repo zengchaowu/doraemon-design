@@ -2,19 +2,17 @@
   <DoraemonFragment
     ref="fragment"
     :payload="{ components, request }"
-    class="flex flex-col gap-4 relative"
+    :class="appearance?.container"
   >
     <template #load="{ context }">
       <!-- 表格内容 -->
-      <div class="flex flex-col">
-        <component
-          :is="components?.cell"
-          v-for="(row, index) in context.data.load"
-          :key="index"
-          :payload="{ ...row, onClick }"
-          @click="select(row, index)"
-        />
-      </div>
+      <component
+        :is="components?.cell"
+        v-for="(row, index) in context.data.load"
+        :key="index"
+        :payload="{ ...row, onClick }"
+        @click="select(row, index)"
+      />
     </template>
   </DoraemonFragment>
 </template>
@@ -26,13 +24,8 @@ export default {
   components: { DoraemonFragment },
   data() {
     return {
-      models: {
-        query: undefined,
-        local: {
-          page: parseInt(this.$route.query.page ?? 1),
-          page_size: parseInt(this.$route.query.page_size ?? 10),
-          count: 0,
-        },
+      appearance: {
+        container: ["flex", "flex-col", "gap-4", "relative"],
       },
     };
   },
