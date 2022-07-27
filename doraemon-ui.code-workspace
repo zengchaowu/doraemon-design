@@ -9,6 +9,10 @@
       "path": "packages/button"
     },
     {
+      "name": "📦 @doraemon-design/form",
+      "path": "packages/form"
+    },
+    {
       "name": "📦 @doraemon-design/input",
       "path": "packages/input"
     },
