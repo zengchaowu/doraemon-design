@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ display: 'flex', gap: '1rem' }">
+  <div>
     <button
       v-for="(tab, index) in payload?.tabs"
       :key="index"
