@@ -1,5 +1,9 @@
 <template>
-  <DoraemonFragment ref="fragment" :payload="{ components, request }">
+  <DoraemonFragment
+    ref="fragment"
+    :payload="{ components, request }"
+    class="flex flex-col gap-4 min-h-36 relative"
+  >
     <template #load="{ context }">
       <el-table :data="context.data.load" height="100%">
         <el-table-column
@@ -15,13 +19,15 @@
           </template>
           <template slot-scope="scope">
             <div class="flex p-4">
-              <span class="min-w-0 truncate">
-                {{ get(scope.row, column.value) }}
+              <span
+                class="min-w-0 truncate"
+                v-html="get(scope.row, column.value)"
+              >
               </span>
             </div>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" width="200">
+        <el-table-column v-if="actions" fixed="right" width="200">
           <template slot="header">
             <div class="flex-center">
               <span class="min-w-0 truncate"> 操作 </span>
@@ -46,25 +52,9 @@ export default {
   components: { DoraemonFragment },
   data() {
     return {
-      // 参数，会被混入到请求中。可在此处放固定参数。
-      params: {
-        // page和limit同时被分页指示器双向绑定。
-        page: 1,
-        limit: 10,
-      },
-      // 总数，主要用于分页。
-      count: undefined,
+      actions: undefined,
+      columns: undefined,
     };
-  },
-  watch: {
-    // 分页点击。
-    "params.page"() {
-      this.reloadData();
-    },
-    // 分页大小变化时。
-    "params.limit"() {
-      this.reloadData();
-    },
   },
   methods: {
     get,
