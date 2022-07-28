@@ -2,7 +2,7 @@
   <DoraemonFragment
     ref="fragment"
     :payload="{ components, request }"
-    class="flex flex-col gap-4 relative"
+    class="absolute inset-0"
   >
     <template #load="{ context }">
       <el-table :data="context.data.load" height="100%">
