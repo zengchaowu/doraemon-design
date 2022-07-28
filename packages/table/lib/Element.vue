@@ -1,9 +1,5 @@
 <template>
-  <DoraemonFragment
-    ref="fragment"
-    :payload="{ components, request }"
-    class="absolute inset-0"
-  >
+  <DoraemonFragment ref="fragment" :payload="{ components, request }">
     <template #load="{ context }">
       <el-table :data="context.data.load" height="100%">
         <el-table-column
