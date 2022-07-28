@@ -18,7 +18,11 @@
               <span
                 v-if="column.type === 'text'"
                 class="min-w-0 truncate"
-                v-html="get(scope.row, column.value)"
+                v-html="
+                  column.display
+                    ? column.display(get(scope.row, column.value))
+                    : get(scope.row, column.value)
+                "
               />
               <component
                 v-else-if="column.type === 'custom'"
