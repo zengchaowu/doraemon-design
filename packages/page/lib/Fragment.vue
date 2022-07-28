@@ -3,12 +3,15 @@
     <template v-if="payload">
       <template v-if="context === 'load'">
         <template v-if="state.load === 'success'">
-          <template v-if="data.load?.length > 0">
-            <slot name="load" v-bind:context="{ state, data }"></slot>
+          <template v-if="isArrayLike(data.load)">
+            <template v-if="data.load?.length > 0">
+              <slot name="load" v-bind:context="{ state, data }"></slot>
+            </template>
+            <template v-else>
+              <component :is="payload.components[context]?.empty" />
+            </template>
           </template>
-          <template v-else>
-            <component :is="payload.components[context]?.empty" />
-          </template>
+          <slot v-else name="load" v-bind:context="{ state, data }"></slot>
         </template>
         <template v-else-if="state.load === 'reloading'">
           <component :is="payload.components[context]?.reloading" />
@@ -28,6 +31,7 @@
 </template>
 
 <script>
+import isArrayLike from "lodash.isarraylike";
 export default {
   props: {
     payload: {
@@ -103,6 +107,9 @@ export default {
         },
       },
     };
+  },
+  methods() {
+    isArrayLike;
   },
 };
 </script>
