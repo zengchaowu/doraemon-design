@@ -108,8 +108,8 @@ export default {
       },
     };
   },
-  methods() {
-    isArrayLike;
+  methods: {
+    isArrayLike,
   },
 };
 </script>
