@@ -9,12 +9,12 @@
           :min-width="column.width"
         >
           <template slot="header">
-            <div class="flex p-4">
+            <div :class="appearance?.header">
               <span class="min-w-0 truncate"> {{ column.label }} </span>
             </div>
           </template>
           <template slot-scope="scope">
-            <div class="flex p-4">
+            <div :class="appearance?.content">
               <span
                 v-if="column.type === 'text'"
                 class="min-w-0 truncate"
@@ -46,6 +46,10 @@ export default {
     return {
       actions: undefined,
       columns: undefined,
+      appearance: {
+        header: ["flex", "p-4"],
+        content: ["flex", "p-4"],
+      },
     };
   },
   methods: {
