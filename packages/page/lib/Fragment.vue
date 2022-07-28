@@ -11,7 +11,11 @@
               <component :is="payload.components[context]?.empty" />
             </template>
           </template>
-          <slot v-else name="load" v-bind:context="{ state, data }"></slot>
+          <slot
+            v-else
+            name="load"
+            v-bind:context="{ state: state.load, data: data.load }"
+          ></slot>
         </template>
         <template v-else-if="state.load === 'reloading'">
           <component :is="payload.components[context]?.reloading" />
