@@ -20,23 +20,15 @@
           <template slot-scope="scope">
             <div class="flex p-4">
               <span
+                v-if="column.type === 'text'"
                 class="min-w-0 truncate"
                 v-html="get(scope.row, column.value)"
-              >
-              </span>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column v-if="actions" fixed="right" width="200">
-          <template slot="header">
-            <div class="flex-center">
-              <span class="min-w-0 truncate"> 操作 </span>
-            </div>
-          </template>
-          <template slot-scope="scope">
-            <div class="flex-center gap-2">
-              <a-button type="primary">删除</a-button>
-              <a-button type="primary">删除</a-button>
+              />
+              <component
+                v-else-if="column.type === 'custom'"
+                :is="column.component"
+                :payload="column.payload(scope.row)"
+              />
             </div>
           </template>
         </el-table-column>
