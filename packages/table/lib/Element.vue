@@ -21,6 +21,7 @@
               >
                 <template #title>
                   <div
+                    class="whitespace-pre-wrap"
                     v-html="
                       column.display
                         ? column.display(get(scope.row, column.value))
@@ -29,6 +30,7 @@
                   />
                 </template>
                 <div
+                  class="whitespace-pre-wrap"
                   v-html="
                     column.display
                       ? column.display(get(scope.row, column.value))
