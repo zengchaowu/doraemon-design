@@ -14,7 +14,9 @@
     :disabled="disabled"
     :allowClear="true"
     :mode="payload?.mode"
-    @change="(option) => $emit('update', option.join(','))"
+    @change="
+      (option) => $emit('update', option.join ? option.join(',') : option)
+    "
   >
     <a-select-option
       v-for="(option, index) in payload?.options"
