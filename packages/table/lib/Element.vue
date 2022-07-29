@@ -6,7 +6,6 @@
           v-for="(column, index) in columns"
           :key="index"
           class="flex-grow basis-1"
-          :show-overflow-tooltip="true"
           :min-width="column.width"
         >
           <template slot="header">
@@ -16,16 +15,29 @@
           </template>
           <template slot-scope="scope">
             <div :class="appearance?.content">
-              <div
+              <a-tooltip
                 v-if="column.type === 'text'"
                 :class="appearance?.contentText"
-                class="whitespace-pre-wrap"
-                v-html="
-                  column.display
-                    ? column.display(get(scope.row, column.value))
-                    : get(scope.row, column.value)
-                "
-              />
+              >
+                <template #title>
+                  <div
+                    class="whitespace-pre-wrap"
+                    v-html="
+                      column.display
+                        ? column.display(get(scope.row, column.value))
+                        : get(scope.row, column.value)
+                    "
+                  />
+                </template>
+                <div
+                  class="whitespace-pre-wrap"
+                  v-html="
+                    column.display
+                      ? column.display(get(scope.row, column.value))
+                      : get(scope.row, column.value)
+                  "
+                />
+              </a-tooltip>
               <component
                 v-else-if="column.type === 'custom'"
                 :is="column.component"
