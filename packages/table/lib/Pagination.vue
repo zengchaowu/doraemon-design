@@ -44,7 +44,7 @@ export default {
       });
       this.$router.push({ path: this.$route.path, query });
     },
-    onShowSizeChange(pageSize) {
+    onShowSizeChange(_current, pageSize) {
       this.models.local.page_size = pageSize;
       const query = Object.assign({}, this.$route.query, {
         page_size: this.models.local.page_size,
