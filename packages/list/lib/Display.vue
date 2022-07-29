@@ -8,7 +8,7 @@
       <!-- 表格内容 -->
       <component
         :is="components?.cell"
-        v-for="(row, index) in context.data.load"
+        v-for="(row, index) in context.data"
         :key="index"
         :payload="{ ...row, onClick }"
         @click="select(row, index)"

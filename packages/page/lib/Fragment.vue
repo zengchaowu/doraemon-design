@@ -5,7 +5,10 @@
         <template v-if="state.load === 'success'">
           <template v-if="isArrayLike(data.load)">
             <template v-if="data.load?.length > 0">
-              <slot name="load" v-bind:context="{ state, data }"></slot>
+              <slot
+                name="load"
+                v-bind:context="{ state: state.load, data: data.load }"
+              ></slot>
             </template>
             <template v-else>
               <component :is="payload.components[context]?.empty" />
@@ -25,7 +28,10 @@
         </template>
       </template>
       <template v-else-if="context === 'search'">
-        <slot name="search" v-bind:context="{ state, data }"></slot>
+        <slot
+          name="search"
+          v-bind:context="{ state: state.search, data: data.search }"
+        ></slot>
       </template>
       <template v-else>
         <slot v-bind:context="{ state, data }"></slot>

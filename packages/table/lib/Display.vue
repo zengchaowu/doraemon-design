@@ -23,7 +23,7 @@
         <!-- 表格内容 -->
         <div class="min-w-0 flex flex-col">
           <div
-            v-for="(row, index) in context.data.load"
+            v-for="(row, index) in context.data"
             :key="index"
             class="flex"
             @click="select(row, index)"
