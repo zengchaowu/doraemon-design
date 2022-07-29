@@ -48,6 +48,10 @@ export default {
   },
   methods: {
     parseSelect,
+    reset() {
+      this.state = undefined;
+      this.options = undefined;
+    },
     async onClick(open = false) {
       if (this.state === undefined || this.state === "fail") {
         this.state = "loading";
@@ -63,8 +67,8 @@ export default {
       }
     },
     onChange(option) {
-      if (option.length > 0) {
-        this.$emit("update", option.join ? option.join(",") : option);
+      if (option?.length > 0) {
+        this.$emit("update", option?.join ? option.join(",") : option);
       } else {
         this.$emit("update", undefined);
       }
