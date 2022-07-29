@@ -14,9 +14,7 @@
     :disabled="disabled"
     :allow-clear="true"
     :mode="payload?.mode"
-    @change="
-      (option) => $emit('update', option.join ? option.join(',') : option)
-    "
+    @change="(option) => onChange(option)"
   >
     <a-select-option
       v-for="(option, index) in payload?.options"
@@ -37,6 +35,13 @@ export default {
   mixins: [mixinInput],
   methods: {
     parseSelect,
+    onChange(option) {
+      if (option.length > 0) {
+        this.$emit("update", option.join ? option.join(",") : option);
+      } else {
+        this.$emit("update", undefined);
+      }
+    },
   },
 };
 </script>

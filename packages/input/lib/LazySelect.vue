@@ -16,9 +16,7 @@
       :disabled="disabled"
       :allow-clear="true"
       :mode="payload?.mode"
-      @change="
-        (option) => $emit('update', option.join ? option.join(',') : option)
-      "
+      @change="(option) => onChange(option)"
       :style="{ 'pointer-events': options ? undefined : 'none' }"
     >
       <a-select-option
@@ -62,6 +60,13 @@ export default {
           console.log(error);
           this.state = "fail";
         }
+      }
+    },
+    onChange(option) {
+      if (option.length > 0) {
+        this.$emit("update", option.join ? option.join(",") : option);
+      } else {
+        this.$emit("update", undefined);
       }
     },
   },
