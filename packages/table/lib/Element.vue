@@ -15,15 +15,27 @@
           </template>
           <template slot-scope="scope">
             <div :class="appearance?.content">
-              <span
+              <a-tooltip
                 v-if="column.type === 'text'"
-                class="min-w-0 truncate"
-                v-html="
-                  column.display
-                    ? column.display(get(scope.row, column.value))
-                    : get(scope.row, column.value)
-                "
-              />
+                :class="appearance?.contentText"
+              >
+                <template #title>
+                  <div
+                    v-html="
+                      column.display
+                        ? column.display(get(scope.row, column.value))
+                        : get(scope.row, column.value)
+                    "
+                  />
+                </template>
+                <div
+                  v-html="
+                    column.display
+                      ? column.display(get(scope.row, column.value))
+                      : get(scope.row, column.value)
+                  "
+                />
+              </a-tooltip>
               <component
                 v-else-if="column.type === 'custom'"
                 :is="column.component"
@@ -49,6 +61,7 @@ export default {
       appearance: {
         header: ["flex", "p-4"],
         content: ["flex", "p-4"],
+        contentText: ["min-w-0", "truncate"],
       },
     };
   },
