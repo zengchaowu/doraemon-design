@@ -61,8 +61,8 @@ export default {
       actions: undefined,
       columns: undefined,
       appearance: {
-        header: ["flex", "p-4"],
-        content: ["flex", "p-4"],
+        header: ["flex"],
+        content: ["flex"],
         contentText: ["min-w-0", "truncate"],
       },
     };
