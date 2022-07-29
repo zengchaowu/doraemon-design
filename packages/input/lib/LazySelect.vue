@@ -47,15 +47,14 @@ export default {
   },
   methods: {
     parseSelect,
-    async onClick() {
+    async onClick(open = false) {
       if (this.state === undefined || this.state === "fail") {
         this.state = "loading";
         try {
           const result = await this.payload?.getOptions();
           this.options = result;
           this.state = "success";
-          console.log(this.$refs.select);
-          this.$refs.select.$el.click();
+          open && this.$refs.select.$el.click();
         } catch (error) {
           console.log(error);
           this.state = "fail";
