@@ -14,6 +14,7 @@
       :value="value"
       :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
       :disabled="disabled"
+      :allowClear="true"
       @change="(option) => $emit('update', option)"
       :style="{ 'pointer-events': options ? undefined : 'none' }"
     >
