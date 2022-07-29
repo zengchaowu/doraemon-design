@@ -14,7 +14,7 @@
       :value="value?.split(',')"
       :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
       :disabled="disabled"
-      :allowClear="true"
+      :allow-clear="true"
       :mode="payload?.mode"
       @change="
         (option) => $emit('update', option.join ? option.join(',') : option)

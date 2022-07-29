@@ -12,7 +12,7 @@
     :value="value"
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
-    :allowClear="true"
+    :allow-clear="true"
     @change="(event) => $emit('update', event.target.value)"
   />
 </template>
