@@ -1,9 +1,9 @@
 <template>
-  <div v-if="models.local.count > 0" class="flex justify-end">
+  <div v-if="count > 0" class="flex justify-end">
     <a-pagination
       :current="models.local.page"
       :page-size="models.local.page_size"
-      :total="models.local.count"
+      :total="count"
       show-size-changer
       @change="onChange"
       @showSizeChange="onShowSizeChange"
@@ -14,13 +14,18 @@
 <script>
 export default {
   inject: ["version"],
+  props: {
+    count: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       models: {
         local: {
           page: 0,
           page_size: 10,
-          count: 0,
         },
       },
     };
@@ -29,7 +34,6 @@ export default {
     version() {
       this.models.local.page = parseInt(this.$route.query.page ?? 1);
       this.models.local.page_size = parseInt(this.$route.query.page_size ?? 10);
-      this.models.local.count = 0;
     },
   },
   methods: {
