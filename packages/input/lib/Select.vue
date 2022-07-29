@@ -9,7 +9,7 @@
   </div>
   <a-select
     v-else
-    :value="value?.split(',')"
+    :value="value?.split ? value?.split(',') : value"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
     :allow-clear="true"
@@ -36,7 +36,7 @@ export default {
   methods: {
     parseSelect,
     onChange(option) {
-      if (option?.length > 0) {
+      if (option?.length > 0 || option.toString()?.length > 0) {
         this.$emit("update", option?.join ? option.join(",") : option);
       } else {
         this.$emit("update", undefined);
