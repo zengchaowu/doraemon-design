@@ -3,7 +3,7 @@
     <template v-if="payload">
       <template v-if="context === 'load'">
         <template v-if="state.load === 'success'">
-          <template v-if="isArrayLike(data.load)">
+          <template v-if="isArrayLike(data.load) || data.load === null">
             <template v-if="data.load?.length > 0">
               <slot
                 name="load"
