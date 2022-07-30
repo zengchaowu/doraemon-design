@@ -1,5 +1,5 @@
 <template>
-  <div v-if="store?.count > 0" class="flex justify-end">
+  <div v-if="store?.count > 0" class="flex justify-end overflow-hidden">
     <a-pagination
       :current="models.local.page"
       :page-size="models.local.page_size"

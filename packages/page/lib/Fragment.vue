@@ -3,7 +3,7 @@
     <template v-if="payload">
       <template v-if="context === 'load'">
         <template v-if="state.load === 'success'">
-          <template v-if="isArrayLike(data.load)">
+          <template v-if="isArrayLike(data.load) || isNil(data.load)">
             <template v-if="data.load?.length > 0">
               <slot
                 name="load"
@@ -42,6 +42,7 @@
 
 <script>
 import isArrayLike from "lodash.isarraylike";
+import isNil from "lodash.isnil";
 export default {
   props: {
     payload: {
@@ -120,6 +121,7 @@ export default {
   },
   methods: {
     isArrayLike,
+    isNil
   },
 };
 </script>
