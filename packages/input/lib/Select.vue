@@ -36,7 +36,7 @@ export default {
   methods: {
     parseSelect,
     onChange(option) {
-      if (option?.length > 0 || option.toString()?.length > 0) {
+      if (option?.length > 0 || option?.toString()?.length > 0) {
         this.$emit("update", option?.join ? option.join(",") : option);
       } else {
         this.$emit("update", undefined);
