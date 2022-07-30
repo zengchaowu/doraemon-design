@@ -9,10 +9,12 @@
   </div>
   <a-textarea
     v-else
+    class="h-20"
     :value="value"
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
     :allow-clear="true"
+    :rows="payload.rows ?? 4"
     @change="(event) => $emit('update', event.target.value)"
   />
 </template>
