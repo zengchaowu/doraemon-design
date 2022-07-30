@@ -7,6 +7,7 @@
           :key="index"
           class="flex-grow basis-1"
           :min-width="column.width"
+          :fixed="column.fixed"
         >
           <template slot="header">
             <div :class="appearance?.header">
