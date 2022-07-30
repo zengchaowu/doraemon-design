@@ -6,6 +6,7 @@
   "author": "zengchaowu <root@zengchaowu.com>",
   "license": "ISC",
   "dependencies": {
-    "lodash.isarraylike": "^4.2.0"
+    "lodash.isarraylike": "^4.2.0",
+    "lodash.isnil": "^4.0.0"
   }
 }
