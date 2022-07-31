@@ -9,52 +9,56 @@
         <div v-for="(row, j) in section.rows" :class="appearance.row">
           <template v-for="input in row.inputs">
             <template v-if="input.display !== false">
-              <template v-if="input.computedValue">
-                <DoraemonInput
-                  ref="input"
-                  :key="input.value ?? input.label"
-                  :value="input.computedValue()"
-                  :class="input.class ?? appearance.input"
-                  :preview="input.preview || preview"
-                  :payload="input"
-                />
-              </template>
-              <template v-else-if="input.value.split('.').length === 1">
-                <DoraemonInput
-                  ref="input"
-                  :key="input.value ?? input.label"
-                  v-model="models[input.value]"
-                  :class="input.class ?? appearance.input"
-                  :preview="input.preview || preview"
-                  :payload="input"
-                />
-              </template>
-              <template v-else-if="input.value.split('.').length === 2">
-                <DoraemonInput
-                  ref="input"
-                  :key="input.value ?? input.label"
-                  v-model="
-                    models[input.value.split('.')[0]][input.value.split('.')[1]]
-                  "
-                  :class="input.class ?? appearance.input"
-                  :preview="input.preview || preview"
-                  :payload="input"
-                />
-              </template>
-              <template v-else-if="input.value.split('.').length === 3">
-                <DoraemonInput
-                  ref="input"
-                  :key="input.value ?? input.label"
-                  v-model="
-                    models[input.value.split('.')[0]][
-                      input.value.split('.')[1]
-                    ][input.value.split('.')[2]]
-                  "
-                  :class="input.class ?? appearance.input"
-                  :preview="input.preview || preview"
-                  :payload="input"
-                />
-              </template>
+              <InputFormItem :payload="input">
+                <template v-if="input.computedValue">
+                  <DoraemonInput
+                    ref="input"
+                    :key="input.value ?? input.label"
+                    :value="input.computedValue()"
+                    :class="input.class ?? appearance.input"
+                    :preview="input.preview || preview"
+                    :payload="input"
+                  />
+                </template>
+                <template v-else-if="input.value.split('.').length === 1">
+                  <DoraemonInput
+                    ref="input"
+                    :key="input.value ?? input.label"
+                    v-model="models[input.value]"
+                    :class="input.class ?? appearance.input"
+                    :preview="input.preview || preview"
+                    :payload="input"
+                  />
+                </template>
+                <template v-else-if="input.value.split('.').length === 2">
+                  <DoraemonInput
+                    ref="input"
+                    :key="input.value ?? input.label"
+                    v-model="
+                      models[input.value.split('.')[0]][
+                        input.value.split('.')[1]
+                      ]
+                    "
+                    :class="input.class ?? appearance.input"
+                    :preview="input.preview || preview"
+                    :payload="input"
+                  />
+                </template>
+                <template v-else-if="input.value.split('.').length === 3">
+                  <DoraemonInput
+                    ref="input"
+                    :key="input.value ?? input.label"
+                    v-model="
+                      models[input.value.split('.')[0]][
+                        input.value.split('.')[1]
+                      ][input.value.split('.')[2]]
+                    "
+                    :class="input.class ?? appearance.input"
+                    :preview="input.preview || preview"
+                    :payload="input"
+                  />
+                </template>
+              </InputFormItem>
             </template>
           </template>
         </div>
