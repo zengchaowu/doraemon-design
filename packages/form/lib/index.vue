@@ -6,13 +6,13 @@
         <span class="text-lg">{{ section.title }}</span>
       </span>
       <div :class="section.class">
-        <div v-for="(row, j) in section.rows" class="flex">
+        <div v-for="(row, j) in section.rows" :class="appearance.row">
           <template v-for="input in row.inputs">
             <template v-if="input.display !== false">
               <template v-if="input.computedValue">
                 <DoraemonInput
                   ref="input"
-                  :key="j"
+                  :key="input.value ?? input.label"
                   :value="input.computedValue()"
                   class="flex-grow w-0"
                   :payload="input"
@@ -21,7 +21,7 @@
               <template v-else-if="input.value.split('.').length === 1">
                 <DoraemonInput
                   ref="input"
-                  :key="j"
+                  :key="input.value ?? input.label"
                   v-model="models[input.value]"
                   class="flex-grow w-0"
                   :payload="input"
@@ -30,7 +30,7 @@
               <template v-else-if="input.value.split('.').length === 2">
                 <DoraemonInput
                   ref="input"
-                  :key="j"
+                  :key="input.value ?? input.label"
                   v-model="
                     models[input.value.split('.')[0]][input.value.split('.')[1]]
                   "
@@ -41,7 +41,7 @@
               <template v-else-if="input.value.split('.').length === 3">
                 <DoraemonInput
                   ref="input"
-                  :key="j"
+                  :key="input.value ?? input.label"
                   v-model="
                     models[input.value.split('.')[0]][
                       input.value.split('.')[1]
@@ -85,6 +85,7 @@ export default {
       appearance: {
         container: ["flex", "flex-col", "gap-4"],
         section: ["flex", "flex-col", "gap-4"],
+        row: ["flex", "gap-4"],
       },
       models: {},
     };
