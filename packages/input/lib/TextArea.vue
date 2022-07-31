@@ -9,7 +9,6 @@
   </div>
   <a-textarea
     v-else
-    class="h-20"
     :value="value"
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"

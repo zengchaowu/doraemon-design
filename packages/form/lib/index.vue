@@ -14,7 +14,7 @@
                   ref="input"
                   :key="input.value ?? input.label"
                   :value="input.computedValue()"
-                  class="flex-grow w-0"
+                  :class="input.class ?? appearance.input"
                   :payload="input"
                 />
               </template>
@@ -23,7 +23,7 @@
                   ref="input"
                   :key="input.value ?? input.label"
                   v-model="models[input.value]"
-                  class="flex-grow w-0"
+                  :class="input.class ?? appearance.input"
                   :payload="input"
                 />
               </template>
@@ -34,7 +34,7 @@
                   v-model="
                     models[input.value.split('.')[0]][input.value.split('.')[1]]
                   "
-                  class="flex-grow w-0"
+                  :class="input.class ?? appearance.input"
                   :payload="input"
                 />
               </template>
@@ -47,7 +47,7 @@
                       input.value.split('.')[1]
                     ][input.value.split('.')[2]]
                   "
-                  class="flex-grow w-0"
+                  :class="input.class ?? appearance.input"
                   :payload="input"
                 />
               </template>
@@ -86,6 +86,7 @@ export default {
         container: ["flex", "flex-col", "gap-4"],
         section: ["flex", "flex-col", "gap-4"],
         row: ["flex", "gap-4"],
+        input: ["flex-grow ", "w-0"],
       },
       models: {},
     };
