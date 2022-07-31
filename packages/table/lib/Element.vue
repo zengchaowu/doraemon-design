@@ -1,7 +1,7 @@
 <template>
   <DoraemonFragment ref="fragment" :payload="{ components, request }">
     <template #load="{ context }">
-      <el-table :data="context.data" height="100%">
+      <el-table :data="context.data" height="100%" @row-click="handleRowClick">
         <el-table-column
           v-for="(column, index) in columns"
           :key="index"
@@ -70,6 +70,7 @@ export default {
   },
   methods: {
     get,
+    handleRowClick() {},
   },
 };
 </script>
