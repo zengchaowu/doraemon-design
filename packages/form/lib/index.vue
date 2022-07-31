@@ -2,8 +2,8 @@
   <div class="flex flex-col">
     <div v-for="(section, index) in sections" :key="index">
       <span class="flex items-center gap-2">
-        <div class="w-2 h-4 bg-primary" />
-        <span>{{ section.title }}</span>
+        <div class="w-2 h-5 rounded-sm bg-primary" />
+        <span class="text-lg">{{ section.title }}</span>
       </span>
       <div v-if="section.inputs" :class="['grid', 'grid-cols-2', 'gap-4']">
         <template v-for="input in section.inputs">
