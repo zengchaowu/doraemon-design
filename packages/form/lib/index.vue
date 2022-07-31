@@ -86,7 +86,7 @@ export default {
         container: ["flex", "flex-col", "gap-4"],
         section: ["flex", "flex-col", "gap-4"],
         row: ["flex", "gap-4"],
-        input: ["flex-grow ", "w-0"],
+        input: ["flex-grow"],
       },
       models: {},
     };
