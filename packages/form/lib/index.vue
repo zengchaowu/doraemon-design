@@ -1,57 +1,59 @@
 <template>
-  <div class="flex flex-col">
-    <div v-for="(section, i) in sections" :key="i" class="flex flex-col">
-      <span class="flex inputs-center gap-2">
+  <div :class="appearance.container">
+    <div v-for="(section, i) in sections" :key="i" :class="appearance.section">
+      <span class="flex items-center gap-2">
         <div class="w-2 h-5 rounded-sm bg-primary" />
         <span class="text-lg">{{ section.title }}</span>
       </span>
-      <div v-for="(row, j) in section.rows" class="flex">
-        <template v-for="input in row.inputs">
-          <template v-if="input.display !== false">
-            <template v-if="input.computedValue">
-              <DoraemonInput
-                ref="input"
-                :key="j"
-                :value="input.computedValue()"
-                class="flex-grow w-0"
-                :payload="input"
-              />
-            </template>
-            <template v-else-if="input.value.split('.').length === 1">
-              <DoraemonInput
-                ref="input"
-                :key="j"
-                v-model="models[input.value]"
-                class="flex-grow w-0"
-                :payload="input"
-              />
-            </template>
-            <template v-else-if="input.value.split('.').length === 2">
-              <DoraemonInput
-                ref="input"
-                :key="j"
-                v-model="
-                  models[input.value.split('.')[0]][input.value.split('.')[1]]
-                "
-                class="flex-grow w-0"
-                :payload="input"
-              />
-            </template>
-            <template v-else-if="input.value.split('.').length === 3">
-              <DoraemonInput
-                ref="input"
-                :key="j"
-                v-model="
-                  models[input.value.split('.')[0]][input.value.split('.')[1]][
-                    input.value.split('.')[2]
-                  ]
-                "
-                class="flex-grow w-0"
-                :payload="input"
-              />
+      <div :class="section.class">
+        <div v-for="(row, j) in section.rows" class="flex">
+          <template v-for="input in row.inputs">
+            <template v-if="input.display !== false">
+              <template v-if="input.computedValue">
+                <DoraemonInput
+                  ref="input"
+                  :key="j"
+                  :value="input.computedValue()"
+                  class="flex-grow w-0"
+                  :payload="input"
+                />
+              </template>
+              <template v-else-if="input.value.split('.').length === 1">
+                <DoraemonInput
+                  ref="input"
+                  :key="j"
+                  v-model="models[input.value]"
+                  class="flex-grow w-0"
+                  :payload="input"
+                />
+              </template>
+              <template v-else-if="input.value.split('.').length === 2">
+                <DoraemonInput
+                  ref="input"
+                  :key="j"
+                  v-model="
+                    models[input.value.split('.')[0]][input.value.split('.')[1]]
+                  "
+                  class="flex-grow w-0"
+                  :payload="input"
+                />
+              </template>
+              <template v-else-if="input.value.split('.').length === 3">
+                <DoraemonInput
+                  ref="input"
+                  :key="j"
+                  v-model="
+                    models[input.value.split('.')[0]][
+                      input.value.split('.')[1]
+                    ][input.value.split('.')[2]]
+                  "
+                  class="flex-grow w-0"
+                  :payload="input"
+                />
+              </template>
             </template>
           </template>
-        </template>
+        </div>
       </div>
     </div>
   </div>
@@ -80,6 +82,10 @@ export default {
   },
   data() {
     return {
+      appearance: {
+        container: ["flex", "flex-col", "gap-4"],
+        section: ["flex", "flex-col", "gap-4"],
+      },
       models: {},
     };
   },
