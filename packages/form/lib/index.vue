@@ -15,6 +15,7 @@
                   :key="input.value ?? input.label"
                   :value="input.computedValue()"
                   :class="input.class ?? appearance.input"
+                  :preview="input.preview || preview"
                   :payload="input"
                 />
               </template>
@@ -24,6 +25,7 @@
                   :key="input.value ?? input.label"
                   v-model="models[input.value]"
                   :class="input.class ?? appearance.input"
+                  :preview="input.preview || preview"
                   :payload="input"
                 />
               </template>
@@ -35,6 +37,7 @@
                     models[input.value.split('.')[0]][input.value.split('.')[1]]
                   "
                   :class="input.class ?? appearance.input"
+                  :preview="input.preview || preview"
                   :payload="input"
                 />
               </template>
@@ -48,6 +51,7 @@
                     ][input.value.split('.')[2]]
                   "
                   :class="input.class ?? appearance.input"
+                  :preview="input.preview || preview"
                   :payload="input"
                 />
               </template>
