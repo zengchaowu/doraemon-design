@@ -1,30 +1,65 @@
 <template>
   <div class="flex flex-col">
-    <div v-for="(section, index) in sections" :key="index">
-      <span class="flex items-center gap-2">
+    <div v-for="(section, i) in sections" :key="i" class="flex flex-col">
+      <span class="flex inputs-center gap-2">
         <div class="w-2 h-5 rounded-sm bg-primary" />
         <span class="text-lg">{{ section.title }}</span>
       </span>
-      <div v-if="section.inputs" :class="['grid', 'grid-cols-2', 'gap-4']">
-        <template v-for="input in section.inputs">
-          <InputFormItem
-            v-if="input.display !== false"
-            :key="input.value"
-            v-model="models[input.value]"
-            :disabled="input.disabled"
-            :preview="input.preview || preview"
-            :payload="{
-              type: input.type,
-              ...input.payload,
-            }"
-          />
+      <div v-for="(row, j) in section.rows" class="flex">
+        <template v-for="input in row.inputs">
+          <template v-if="input.display !== false">
+            <template v-if="input.computedValue">
+              <DoraemonInput
+                ref="input"
+                :key="j"
+                :value="input.computedValue()"
+                class="flex-grow w-0"
+                :payload="input"
+              />
+            </template>
+            <template v-else-if="input.value.split('.').length === 1">
+              <DoraemonInput
+                ref="input"
+                :key="j"
+                v-model="models[input.value]"
+                class="flex-grow w-0"
+                :payload="input"
+              />
+            </template>
+            <template v-else-if="input.value.split('.').length === 2">
+              <DoraemonInput
+                ref="input"
+                :key="j"
+                v-model="
+                  models[input.value.split('.')[0]][input.value.split('.')[1]]
+                "
+                class="flex-grow w-0"
+                :payload="input"
+              />
+            </template>
+            <template v-else-if="input.value.split('.').length === 3">
+              <DoraemonInput
+                ref="input"
+                :key="j"
+                v-model="
+                  models[input.value.split('.')[0]][input.value.split('.')[1]][
+                    input.value.split('.')[2]
+                  ]
+                "
+                class="flex-grow w-0"
+                :payload="input"
+              />
+            </template>
+          </template>
         </template>
       </div>
     </div>
   </div>
 </template>
 <script>
+import DoraemonInput from "@doraemon-design/input/lib/index.vue";
 export default {
+  components: { DoraemonInput },
   props: {
     preview: {
       type: Boolean,
