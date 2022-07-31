@@ -31,7 +31,7 @@
                   />
                 </template>
                 <div
-                  class="whitespace-pre-wrap"
+                  class="whitespace-pre-wrap line-clamp-2"
                   v-html="
                     column.display
                       ? column.display(get(scope.row, column.value))
