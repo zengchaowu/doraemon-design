@@ -1,10 +1,10 @@
 <template>
-  <div v-if="preview" class="flex truncate items-center min-w-0">
+  <div v-if="preview" class="flex items-center truncate min-w-0">
     <a-tooltip class="min-w-0 truncate">
       <template #title>
-        {{ parseSelect(payload?.options, value) }}
+        {{ payload?.options ? parseSelect(payload?.options, value) : value }}
       </template>
-      {{ parseSelect(payload?.options, value) }}
+      {{ payload?.options ? parseSelect(payload?.options, value) : value }}
     </a-tooltip>
   </div>
   <div v-else class="content" @click="onClick">
