@@ -1,11 +1,11 @@
 <template>
   <div v-if="preview" class="flex truncate items-center min-w-0 h-8">
-    <Tooltip class="min-w-0 truncate">
+    <a-tooltip class="min-w-0 truncate">
       <template #title>
         {{ value }}
       </template>
       {{ value }}
-    </Tooltip>
+    </a-tooltip>
   </div>
   <a-textarea
     v-else
