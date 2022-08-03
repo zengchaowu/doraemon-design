@@ -16,7 +16,7 @@
       :disabled="disabled"
       :allow-clear="true"
       :mode="payload?.mode"
-      @change="(option) => onChange(option)"
+      @select="onSelect"
       :style="{ 'pointer-events': options ? undefined : 'none' }"
     >
       <a-select-option
@@ -66,9 +66,9 @@ export default {
         }
       }
     },
-    onChange(value, option) {
+    onSelect(value) {
       if (this.payload.onSelect) {
-        this.payload.onSelect(option);
+        this.payload.onSelect(value);
       } else if (value?.length > 0 || value?.toString()?.length > 0) {
         this.$emit("update", value?.join ? value.join(",") : value);
       } else {
