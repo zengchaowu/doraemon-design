@@ -66,11 +66,11 @@ export default {
         }
       }
     },
-    onChange(option) {
+    onChange(value, option) {
       if (this.payload.onSelect) {
         this.payload.onSelect(option);
-      } else if (option?.length > 0 || option?.toString()?.length > 0) {
-        this.$emit("update", option?.join ? option.join(",") : option);
+      } else if (value?.length > 0 || value?.toString()?.length > 0) {
+        this.$emit("update", value?.join ? value.join(",") : value);
       } else {
         this.$emit("update", undefined);
       }
