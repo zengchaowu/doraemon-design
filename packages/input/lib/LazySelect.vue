@@ -68,7 +68,7 @@ export default {
     },
     onSelect(value) {
       if (this.payload.onSelect) {
-        this.payload.onSelect(value);
+        this.payload.onSelect(value, this.options);
       } else if (value?.length > 0 || value?.toString()?.length > 0) {
         this.$emit("update", value?.join ? value.join(",") : value);
       } else {
