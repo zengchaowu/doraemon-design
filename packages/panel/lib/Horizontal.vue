@@ -53,7 +53,7 @@ export default {
         this.stopDrag,
         false
       );
-      this.$refs.line.style.backgroundColor = "#3470ff";
+      this.$refs.line.style.backgroundColor = "#2C96FF";
       this.$refs.container.style.cursor = "col-resize";
     },
     doDrag(e) {
