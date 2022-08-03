@@ -67,8 +67,8 @@ export default {
       }
     },
     onChange(option) {
-      if (payload.onSelect) {
-        payload.onSelect(option);
+      if (this.payload.onSelect) {
+        this.payload.onSelect(option);
       } else if (option?.length > 0 || option?.toString()?.length > 0) {
         this.$emit("update", option?.join ? option.join(",") : option);
       } else {
