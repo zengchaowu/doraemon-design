@@ -5,8 +5,8 @@
         class="w-5 h-5 fill-current"
         v-html="require(`~/assets/images/icons/${payload?.image}?include`)"
       />
-      <component v-if="payload?.overlay" :is="payload.overlay" />
     </button>
+    <component v-if="payload?.overlay" :is="payload.overlay" slot="overlay" />
   </a-dropdown>
   <button v-else type="button" @click="payload?.onClick?.call()">
     <div
