@@ -18,7 +18,7 @@ export default {
     };
   },
   created() {
-    const name = camelcase(this.payload.type, { pascalCase: true });
+    const name = camelcase(this.payload?.type, { pascalCase: true });
     this.component = require(`./${name}.vue`).default;
   },
 };
