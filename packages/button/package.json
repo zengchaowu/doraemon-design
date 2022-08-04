@@ -4,5 +4,6 @@
   "description": "",
   "keywords": [],
   "author": "zengchaowu <root@zengchaowu.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "main": "./lib/index.vue"
 }
