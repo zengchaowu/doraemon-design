@@ -6,11 +6,7 @@
         class="w-5 h-5 fill-current"
         v-html="payload.html"
       />
-      <div
-        v-if="payload?.src"
-        class="w-5 h-5 fill-current"
-        :src="payload.src"
-      />
+      <img v-if="payload?.src" class="w-5 h-5" :src="payload.src" />
       <span v-if="payload?.label">{{ payload.label }}</span>
     </button>
     <component v-if="payload?.overlay" :is="payload.overlay" slot="overlay" />
@@ -26,7 +22,7 @@
       class="w-5 h-5 fill-current"
       v-html="payload.html"
     />
-    <div v-if="payload?.src" class="w-5 h-5 fill-current" :src="payload.src" />
+    <img v-if="payload?.src" class="w-5 h-5" :src="payload.src" />
     <span v-if="payload?.label">{{ payload.label }}</span>
   </button>
 </template>
