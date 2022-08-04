@@ -8,7 +8,7 @@
       <component v-if="payload?.overlay" :is="payload.overlay" />
     </button>
   </a-dropdown>
-  <button type="button" @click="payload?.onClick?.call()">
+  <button v-else type="button" @click="payload?.onClick?.call()">
     <div
       class="w-5 h-5 fill-current"
       v-html="require(`~/assets/images/icons/${payload?.image}?include`)"
