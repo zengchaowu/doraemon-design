@@ -11,7 +11,10 @@
               ></slot>
             </template>
             <template v-else>
-              <component :is="payload.components[context]?.empty" />
+              <component
+                :is="payload.components[context]?.empty"
+                :class="payload?.appearance[context]?.empty"
+              />
             </template>
           </template>
           <slot
@@ -21,10 +24,16 @@
           ></slot>
         </template>
         <template v-else-if="state.load === 'reloading'">
-          <component :is="payload.components[context]?.reloading" />
+          <component
+            :is="payload.components[context]?.reloading"
+            :class="payload?.appearance[context]?.reloading"
+          />
         </template>
         <template v-else-if="state.load === 'reloadError'">
-          <component :is="payload.components[context]?.reloadError" />
+          <component
+            :is="payload.components[context]?.reloadError"
+            :class="payload?.appearance[context]?.reloadError"
+          />
         </template>
       </template>
       <template v-else-if="context === 'search'">
@@ -121,7 +130,7 @@ export default {
   },
   methods: {
     isArrayLike,
-    isNil
+    isNil,
   },
 };
 </script>
