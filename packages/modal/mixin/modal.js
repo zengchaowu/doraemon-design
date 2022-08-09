@@ -13,7 +13,7 @@ export default {
     };
   },
   created() {
-    Object.assign(this.models, pick(this.payload?.data, keys(this.models)));
+    Object.assign(this.models, pick(this.payload.data, keys(this.models)));
   },
   methods: {
     dismiss() {
