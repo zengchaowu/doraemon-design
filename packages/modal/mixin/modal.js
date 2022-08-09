@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     dismiss() {
-      this.$modal.hide(this.payload?.name);
+      this.$modal.hide(this.payload.name);
     },
   },
 };
