@@ -7,12 +7,11 @@
       {{ value }}
     </a-tooltip>
   </div>
-  <a-date-picker
+  <a-week-picker
     v-else
-    :value="value"
+    :value="value?.split ? value?.split(',')[0] : value"
     :disabled="disabled"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
-    format="YYYY-MM-DD"
     style="height: fit-content"
     @change="change"
   />
@@ -23,8 +22,14 @@ import _interface from "../mixin/input.js";
 export default {
   mixins: [_interface],
   methods: {
-    change(_, value) {
-      this.$emit("update", value);
+    change(date) {
+      this.$emit(
+        "update",
+        [
+          date.isoWeekday(1).format("YYYY-MM-DD"),
+          date.isoWeekday(7).format("YYYY-MM-DD"),
+        ].join(",")
+      );
     },
   },
 };

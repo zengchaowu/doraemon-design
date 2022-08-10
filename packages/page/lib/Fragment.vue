@@ -12,8 +12,8 @@
             </template>
             <template v-else>
               <component
-                :is="payload.components[context]?.empty"
-                :class="payload?.appearance[context]?.empty"
+                :is="payload.components?.load?.empty"
+                :class="payload?.appearance?.load?.empty"
               />
             </template>
           </template>
@@ -25,14 +25,14 @@
         </template>
         <template v-else-if="state.load === 'reloading'">
           <component
-            :is="payload.components[context]?.reloading"
-            :class="payload?.appearance[context]?.reloading"
+            :is="payload.components?.load?.reloading"
+            :class="payload?.appearance?.load?.reloading"
           />
         </template>
         <template v-else-if="state.load === 'reloadError'">
           <component
-            :is="payload.components[context]?.reloadError"
-            :class="payload?.appearance[context]?.reloadError"
+            :is="payload.components?.load?.reloadError"
+            :class="payload?.appearance?.load?.reloadError"
           />
         </template>
       </template>
