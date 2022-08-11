@@ -26,10 +26,12 @@ export default {
     change(date) {
       this.$emit(
         "update",
-        [
-          date.isoWeekday(1).format("YYYY-MM-DD"),
-          date.isoWeekday(7).format("YYYY-MM-DD"),
-        ].join(",")
+        date
+          ? [
+              date.isoWeekday(1).format("YYYY-MM-DD"),
+              date.isoWeekday(7).format("YYYY-MM-DD"),
+            ].join(",")
+          : undefined
       );
     },
   },
