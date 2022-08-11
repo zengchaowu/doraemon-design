@@ -10,7 +10,7 @@
         :is="components?.cell"
         v-for="(row, index) in context.data"
         :key="index"
-        :class="appearance?.container"
+        :class="appearance?.cell"
         :payload="{ ...row, onClick }"
         @click="select(row, index)"
       />
