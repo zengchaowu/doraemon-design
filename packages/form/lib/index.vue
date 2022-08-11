@@ -8,7 +8,7 @@
       <div :class="section.class">
         <div v-for="(row, j) in section.rows" :class="appearance.row">
           <template v-for="input in row.inputs">
-            <template v-if="input.display !== false">
+            <template v-if="input.visible !== false">
               <InputFormItem :payload="input">
                 <template v-if="input.computedValue">
                   <DoraemonInput
