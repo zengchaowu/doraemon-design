@@ -16,7 +16,7 @@
       :disabled="disabled"
       :allow-clear="true"
       :mode="payload?.mode"
-      @select="onSelect"
+      @change="onSelect"
       :style="{ 'pointer-events': options ? undefined : 'none' }"
     >
       <a-select-option
