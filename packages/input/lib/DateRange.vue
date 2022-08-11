@@ -10,6 +10,7 @@
   <a-range-picker
     v-else
     :value="value?.split(',')"
+    :disabled-date="payload?.disabledDate"
     value-format="YYYY-MM-DD"
     @change="dateRangeChange"
   />

@@ -12,6 +12,7 @@
     :value="value?.split ? value?.split(',')[0] : value"
     :disabled="disabled"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
+    :disabled-date="payload?.disabledDate"
     style="height: fit-content"
     @change="change"
   />
