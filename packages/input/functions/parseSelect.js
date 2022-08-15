@@ -1,7 +1,7 @@
-import { find, isNil } from "lodash";
+import { find } from "lodash";
 export default (options, value, placeholder = "") => {
   const option = find(options, (item) => {
-    if (!isNil(item.value)) {
+    if (item.value) {
       return item.value === value;
     } else {
       return item === value;

@@ -199,7 +199,6 @@
 </template>
 
 <script>
-import isNil from "lodash.isnil";
 import { get as keypath } from "object-path";
 import DoraemonFragment from "@doraemon-design/page/lib/Fragment.vue";
 export default {
@@ -325,7 +324,7 @@ export default {
     payload: {
       immediate: true,
       handler(newValue, oldValue) {
-        if (isNil(newValue) && isNil(oldValue)) {
+        if (!newValue && !oldValue) {
           return;
         }
         this.resetData();
