@@ -1,5 +1,8 @@
 <template>
-  <div v-if="preview" class="flex truncate items-center min-w-0">
+  <div
+    v-if="preview && isEditing === false"
+    class="flex truncate items-center min-w-0"
+  >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
         {{ parseSelect(payload?.options, value) }}
@@ -14,7 +17,7 @@
     :disabled="disabled"
     :allow-clear="true"
     :mode="payload?.mode"
-    @change="(option) => onChange(option)"
+    @change="onChange"
   >
     <a-select-option
       v-for="(option, index) in payload?.options"
@@ -41,6 +44,7 @@ export default {
       } else {
         this.$emit("update", undefined);
       }
+      this.onBlur();
     },
   },
 };

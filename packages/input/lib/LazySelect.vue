@@ -1,5 +1,8 @@
 <template>
-  <div v-if="preview" class="flex items-center truncate min-w-0">
+  <div
+    v-if="preview && isEditing === false"
+    class="flex items-center truncate min-w-0"
+  >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
         {{ payload?.options ? parseSelect(payload?.options, value) : value }}
@@ -74,6 +77,7 @@ export default {
       } else {
         this.$emit("update", undefined);
       }
+      this.onBlur();
     },
   },
 };

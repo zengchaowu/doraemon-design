@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="preview"
+    v-if="preview && isEditing === false"
     class="bg-gray-100 m-2 p-2 rounded-md whitespace-pre-wrap"
   >
     <span>{{ value }}</span>
@@ -12,7 +12,7 @@
     :disabled="disabled"
     :allow-clear="true"
     :rows="payload.rows ?? 4"
-    @change="(event) => $emit('update', event.target.value)"
+    @change="onChange"
   />
 </template>
 
@@ -20,5 +20,11 @@
 import _interface from "../mixin/input.js";
 export default {
   mixins: [_interface],
+  methods: {
+    onChange(event) {
+      this.$emit("update", event.target.value);
+      this.onBlur();
+    },
+  },
 };
 </script>

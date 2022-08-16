@@ -1,5 +1,8 @@
 <template>
-  <div v-if="preview" class="flex truncate items-center min-w-0 h-8">
+  <div
+    v-if="preview && isEditing === false"
+    class="flex truncate items-center min-w-0 h-8"
+  >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
         {{ value }}
@@ -22,6 +25,7 @@ export default {
   methods: {
     dateRangeChange(result) {
       this.payload?.onChange && this.payload?.onChange(result);
+      this.onBlur();
     },
   },
 };

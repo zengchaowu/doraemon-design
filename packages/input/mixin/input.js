@@ -1,7 +1,7 @@
 export default {
   model: {
-    prop: 'value',
-    event: 'update',
+    prop: "value",
+    event: "update",
   },
   props: {
     value: {
@@ -21,4 +21,17 @@ export default {
       default: false,
     },
   },
-}
+  data() {
+    return {
+      isEditing: false,
+    };
+  },
+  methods: {
+    onDbclick() {
+      this.isEditing = true;
+    },
+    onBlur() {
+      this.isEditing = false;
+    },
+  },
+};

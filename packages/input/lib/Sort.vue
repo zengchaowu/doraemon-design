@@ -1,5 +1,8 @@
 <template>
-  <div v-if="preview" class="flex truncate items-center min-w-0">
+  <div
+    v-if="preview && isEditing === false"
+    class="flex truncate items-center min-w-0"
+  >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
         {{ parseSelect(payload?.options, value) }}
@@ -12,7 +15,7 @@
     :value="value"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
-    @change="(option) => $emit('update', option)"
+    @change="onChange"
   >
     <a-select-option
       v-for="(option, index) in payload?.options"
@@ -27,12 +30,16 @@
 </template>
 
 <script>
-import parseSelect from '../functions/parseSelect.js'
-import _interface from '../mixin/input.js'
+import parseSelect from "../functions/parseSelect.js";
+import _interface from "../mixin/input.js";
 export default {
   mixins: [_interface],
   methods: {
     parseSelect,
+    onChange(option) {
+      this.$emit("update", option);
+      this.onBlur();
+    },
   },
-}
+};
 </script>

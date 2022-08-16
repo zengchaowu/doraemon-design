@@ -1,5 +1,9 @@
 <template>
-  <div v-if="preview" class="flex truncate items-center min-w-0 h-8">
+  <div
+    v-if="preview && isEditing === false"
+    class="flex truncate items-center min-w-0 h-8"
+    @dblclick="onDbclick"
+  >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
         {{ value }}
@@ -13,7 +17,7 @@
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
     :allow-clear="true"
-    @change="(event) => $emit('update', event.target.value)"
+    @change="onChange"
   />
 </template>
 
@@ -21,5 +25,11 @@
 import _interface from "../mixin/input.js";
 export default {
   mixins: [_interface],
+  methods: {
+    onChange(event) {
+      this.$emit("update", event.target.value);
+      this.onBlur();
+    },
+  },
 };
 </script>
