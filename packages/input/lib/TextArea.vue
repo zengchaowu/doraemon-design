@@ -14,7 +14,7 @@
     :allow-clear="true"
     :rows="payload.rows ?? 4"
     @change="onChange"
-    @keyup.enter="onBlur"
+    @keyup.esc="onBlur"
   />
 </template>
 
