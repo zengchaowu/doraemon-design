@@ -12,6 +12,10 @@ export default {
       type: Object,
       default: undefined,
     },
+    editable: {
+      type: Boolean,
+      default: false,
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -28,7 +32,7 @@ export default {
   },
   methods: {
     onDbclick() {
-      if (this.preview === true) {
+      if (this.editable === true && this.preview === true) {
         this.isEditing = true;
       }
     },
