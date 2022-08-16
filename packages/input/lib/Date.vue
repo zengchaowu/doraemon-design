@@ -30,7 +30,6 @@ export default {
   methods: {
     change(_, value) {
       this.$emit("update", value);
-      this.onBlur();
     },
   },
 };

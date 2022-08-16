@@ -27,7 +27,6 @@ export default {
   methods: {
     dateRangeChange(result) {
       this.payload?.onChange && this.payload?.onChange(result);
-      this.onBlur();
     },
   },
 };

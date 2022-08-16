@@ -38,7 +38,6 @@ export default {
             ].join(",")
           : undefined
       );
-      this.onBlur();
     },
   },
 };

@@ -61,7 +61,6 @@ export default {
         if (code === 0) {
           this.status = "done";
           this.$emit("update", data.url);
-          this.onBlur();
         } else {
           this.$message.error(msg);
           this.status = "fail";

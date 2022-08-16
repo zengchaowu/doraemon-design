@@ -40,7 +40,6 @@ export default {
     parseSelect,
     onChange(option) {
       this.$emit("update", option);
-      this.onBlur();
     },
   },
 };

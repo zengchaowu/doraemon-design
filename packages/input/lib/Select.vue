@@ -46,7 +46,6 @@ export default {
       } else {
         this.$emit("update", undefined);
       }
-      this.onBlur();
     },
   },
 };
