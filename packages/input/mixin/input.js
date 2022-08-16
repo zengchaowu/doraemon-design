@@ -5,7 +5,7 @@ export default {
   },
   props: {
     value: {
-      type: [Object, Number, String, Array],
+      type: [Object, Number, String, Array, undefined],
       default: undefined,
     },
     payload: {
