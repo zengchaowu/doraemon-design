@@ -17,6 +17,7 @@
     :disabled-date="payload?.disabledDate"
     value-format="YYYY-MM-DD"
     @change="dateRangeChange"
+    @keyup.esc="onBlur"
   />
 </template>
 <script>

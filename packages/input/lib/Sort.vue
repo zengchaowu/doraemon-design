@@ -17,6 +17,7 @@
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
     @change="onChange"
+    @keyup.esc="onBlur"
   >
     <a-select-option
       v-for="(option, index) in payload?.options"

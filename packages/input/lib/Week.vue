@@ -19,6 +19,7 @@
     :disabled-date="payload?.disabledDate"
     style="height: fit-content"
     @change="change"
+    @keyup.esc="onBlur"
   />
 </template>
 

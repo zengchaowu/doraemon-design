@@ -12,6 +12,7 @@
     type="button"
     class="truncate"
     @click="click"
+    @keyup.esc="onBlur"
   >
     <span class="truncate">{{ value ? "已上传" : "选择文件" }}</span>
     <input ref="input" type="file" class="hidden" @input="input" />
