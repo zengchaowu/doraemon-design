@@ -11,6 +11,7 @@
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
     @change="onChange"
+    @keyup.enter="onBlur"
   />
 </template>
 
@@ -21,7 +22,6 @@ export default {
   methods: {
     onChange(value) {
       this.$emit("update", value);
-      this.onBlur();
     },
   },
 };

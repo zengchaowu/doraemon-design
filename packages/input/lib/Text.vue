@@ -18,6 +18,7 @@
     :disabled="disabled"
     :allow-clear="true"
     @change="onChange"
+    @keyup.enter="onBlur"
   />
 </template>
 
@@ -28,7 +29,6 @@ export default {
   methods: {
     onChange(event) {
       this.$emit("update", event.target.value);
-      this.onBlur();
     },
   },
 };

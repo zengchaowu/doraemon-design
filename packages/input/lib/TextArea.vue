@@ -13,6 +13,7 @@
     :allow-clear="true"
     :rows="payload.rows ?? 4"
     @change="onChange"
+    @keyup.enter="onBlur"
   />
 </template>
 
@@ -23,7 +24,6 @@ export default {
   methods: {
     onChange(event) {
       this.$emit("update", event.target.value);
-      this.onBlur();
     },
   },
 };
