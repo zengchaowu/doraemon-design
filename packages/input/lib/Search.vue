@@ -12,7 +12,7 @@
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
     @change="onChange"
-    @keyup.enter="onBlur"
+    @keyup.esc="onBlur"
   />
 </template>
 

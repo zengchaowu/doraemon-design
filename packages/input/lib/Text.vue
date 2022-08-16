@@ -18,7 +18,7 @@
     :disabled="disabled"
     :allow-clear="true"
     @change="onChange"
-    @keyup.enter="onBlur"
+    @keyup.esc="onBlur"
   />
 </template>
 
