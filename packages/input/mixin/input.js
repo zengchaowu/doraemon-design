@@ -28,10 +28,14 @@ export default {
   },
   methods: {
     onDbclick() {
-      this.isEditing = true;
+      if (this.preview === true) {
+        this.isEditing = true;
+      }
     },
     onBlur() {
-      this.isEditing = false;
+      if (this.isEditing === true) {
+        this.isEditing = false;
+      }
     },
   },
 };
