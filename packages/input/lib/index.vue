@@ -3,6 +3,7 @@
     :is="component"
     :value="value"
     :payload="payload"
+    :editable="editable"
     :disabled="disabled"
     :preview="preview"
     v-on="$listeners"
