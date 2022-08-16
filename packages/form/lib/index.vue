@@ -18,6 +18,7 @@
                     :class="input.class ?? appearance.input"
                     :preview="input.preview || preview"
                     :payload="input"
+                    :editable="input.editable"
                   />
                 </template>
                 <template v-else-if="input.value.split('.').length === 1">
@@ -28,6 +29,7 @@
                     :class="input.class ?? appearance.input"
                     :preview="input.preview || preview"
                     :payload="input"
+                    :editable="input.editable"
                   />
                 </template>
                 <template v-else-if="input.value.split('.').length === 2">
@@ -42,6 +44,7 @@
                     :class="input.class ?? appearance.input"
                     :preview="input.preview || preview"
                     :payload="input"
+                    :editable="input.editable"
                   />
                 </template>
                 <template v-else-if="input.value.split('.').length === 3">
@@ -56,6 +59,7 @@
                     :class="input.class ?? appearance.input"
                     :preview="input.preview || preview"
                     :payload="input"
+                    :editable="input.editable"
                   />
                 </template>
               </InputFormItem>
