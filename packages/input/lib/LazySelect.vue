@@ -2,6 +2,7 @@
   <div
     v-if="preview && isEditing === false"
     class="flex items-center truncate min-w-0"
+    @dblclick="onDbclick"
   >
     <a-tooltip class="min-w-0 truncate">
       <template #title>

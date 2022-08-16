@@ -2,6 +2,7 @@
   <div
     v-if="preview && isEditing === false"
     class="bg-gray-100 m-2 p-2 rounded-md whitespace-pre-wrap"
+    @dblclick="onDbclick"
   >
     <span>{{ value }}</span>
   </div>

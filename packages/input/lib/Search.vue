@@ -2,6 +2,7 @@
   <div
     v-if="preview && isEditing === false"
     class="flex truncate items-center min-w-0"
+    @dblclick="onDbclick"
   >
     <span class="truncate">{{ value }}</span>
   </div>
