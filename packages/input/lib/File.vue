@@ -1,7 +1,10 @@
 <template>
   <div
     v-if="preview && isEditing === false"
-    class="flex truncate items-center min-w-0 h-8"
+    class="flex truncate items-center min-w-0 h-8 border-1 border-transparent px-2 rounded-md"
+    :class="{
+      'hover:border-border': editable,
+    }"
     @click="onDbclick"
   >
     <a target="_blank" :href="value">下载</a>
