@@ -19,7 +19,7 @@
     format="YYYY-MM-DD"
     style="height: fit-content"
     @change="change"
-    @keyup.esc="onBlur"
+    v-clickoutside="onBlur"
   />
 </template>
 

@@ -14,7 +14,7 @@
     :allow-clear="true"
     :rows="payload.rows ?? 4"
     @change="onChange"
-    @keyup.esc="onBlur"
+    v-clickoutside="onBlur"
   />
 </template>
 

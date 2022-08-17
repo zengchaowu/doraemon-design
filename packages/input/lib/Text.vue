@@ -18,7 +18,7 @@
     :disabled="disabled"
     :allow-clear="true"
     @change="onChange"
-    @keyup.esc="onBlur"
+    v-clickoutside="onBlur"
   />
 </template>
 

@@ -11,7 +11,7 @@
       {{ payload?.options ? parseSelect(payload?.options, value) : value }}
     </a-tooltip>
   </div>
-  <div v-else class="content" @click="onClick" @keyup.esc="onBlur">
+  <div v-else class="content" @click="onClick" v-clickoutside="onBlur">
     <a-select
       ref="select"
       class="flex-grow"

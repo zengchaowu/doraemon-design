@@ -19,7 +19,7 @@
     :allow-clear="true"
     :mode="payload?.mode"
     @change="onChange"
-    @keyup.esc="onBlur"
+    v-clickoutside="onBlur"
   >
     <a-select-option
       v-for="(option, index) in payload?.options"

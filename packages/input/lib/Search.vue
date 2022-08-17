@@ -12,7 +12,7 @@
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
     @change="onChange"
-    @keyup.esc="onBlur"
+    v-clickoutside="onBlur"
   />
 </template>
 
