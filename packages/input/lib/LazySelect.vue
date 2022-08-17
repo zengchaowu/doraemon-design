@@ -15,11 +15,7 @@
     <a-select
       ref="select"
       class="flex-grow"
-      :value="
-        (localValue ?? value)?.split
-          ? (localValue ?? value)?.split(',')
-          : localValue ?? value
-      "
+      :value="localValue?.split ? localValue?.split(',') : localValue"
       :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
       :disabled="disabled"
       :allow-clear="true"

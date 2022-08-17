@@ -13,7 +13,7 @@
   </div>
   <a-date-picker
     v-else
-    :value="localValue ?? value"
+    :value="localValue"
     :disabled="disabled"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     format="YYYY-MM-DD"

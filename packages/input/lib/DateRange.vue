@@ -13,7 +13,7 @@
   </div>
   <a-range-picker
     v-else
-    :value="(localValue ?? value)?.split(',')"
+    :value="localValue?.split(',')"
     :disabled-date="payload?.disabledDate"
     value-format="YYYY-MM-DD"
     @change="onChange"

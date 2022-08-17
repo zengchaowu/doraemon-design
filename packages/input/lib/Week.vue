@@ -13,11 +13,7 @@
   </div>
   <a-week-picker
     v-else
-    :value="
-      (localValue ?? value)?.split
-        ? (localValue ?? value)?.split(',')[0]
-        : localValue ?? value
-    "
+    :value="localValue?.split ? localValue?.split(',')[0] : localValue"
     :disabled="disabled"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled-date="payload?.disabledDate"

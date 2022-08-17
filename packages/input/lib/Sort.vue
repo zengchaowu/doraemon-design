@@ -13,7 +13,7 @@
   </div>
   <a-select
     v-else
-    :value="localValue ?? value"
+    :value="localValue"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
     @change="onChange"

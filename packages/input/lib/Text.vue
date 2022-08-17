@@ -13,7 +13,7 @@
   </div>
   <a-input
     v-else
-    :value="localValue ?? value"
+    :value="localValue"
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
     :allow-clear="true"

@@ -31,6 +31,14 @@ export default {
       localValue: undefined,
     };
   },
+  watch: {
+    value: {
+      handler() {
+        this.localValue = this.value;
+      },
+      immediate: true,
+    },
+  },
   methods: {
     onDbclick() {
       if (this.editable === true && this.preview === true) {

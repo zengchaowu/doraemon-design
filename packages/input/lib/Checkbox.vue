@@ -3,11 +3,7 @@
     class="flex truncate items-center min-w-0 h-8"
     v-clickoutside="onClickoutside"
   >
-    <a-checkbox
-      :checked="localValue ?? value"
-      :disabled="disabled"
-      @change="onChange"
-    >
+    <a-checkbox :checked="localValue" :disabled="disabled" @change="onChange">
       {{ payload?.label }}
     </a-checkbox>
   </div>
