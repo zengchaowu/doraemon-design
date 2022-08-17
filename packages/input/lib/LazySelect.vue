@@ -11,7 +11,7 @@
       {{ payload?.options ? parseSelect(payload?.options, value) : value }}
     </a-tooltip>
   </div>
-  <div v-else class="content" @click="onClick" v-clickoutside="onClickoutside">
+  <div v-else class="content" @click="onClick">
     <a-select
       ref="select"
       class="flex-grow"
@@ -78,10 +78,12 @@ export default {
           ? value.join(",")
           : value
         : undefined;
+
+      this.onClickoutside();
     },
     onClickoutside() {
       const value = this.localValue;
-      this.localValue = undefined;
+
       if (this.payload.onSelect) {
         this.payload.onSelect(value, this.options);
       } else {

@@ -19,7 +19,7 @@ export default {
     },
     onClickoutside() {
       const value = this.localValue;
-      this.localValue = undefined;
+
       this.$emit("update", value);
 
       this.onBlur();
