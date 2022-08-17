@@ -18,6 +18,7 @@
                     :class="input.class ?? appearance.input"
                     :preview="input.preview || preview"
                     :payload="input"
+                    :disabled="input.disabled"
                     :editable="input.editable"
                   />
                 </template>
@@ -29,6 +30,7 @@
                     :class="input.class ?? appearance.input"
                     :preview="input.preview || preview"
                     :payload="input"
+                    :disabled="input.disabled"
                     :editable="input.editable"
                   />
                 </template>
@@ -44,6 +46,7 @@
                     :class="input.class ?? appearance.input"
                     :preview="input.preview || preview"
                     :payload="input"
+                    :disabled="input.disabled"
                     :editable="input.editable"
                   />
                 </template>
@@ -59,6 +62,7 @@
                     :class="input.class ?? appearance.input"
                     :preview="input.preview || preview"
                     :payload="input"
+                    :disabled="input.disabled"
                     :editable="input.editable"
                   />
                 </template>
