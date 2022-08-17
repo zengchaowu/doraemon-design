@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="preview && isEditing === false"
-    class="bg-gray-100 m-2 p-2 rounded-md whitespace-pre-wrap border-1 border-transparent px-2 rounded-md"
+    class="bg-gray-100 m-2 p-2 rounded-md whitespace-pre-wrap border-1 border-transparent rounded-md"
     :class="{
       'hover:border-border': editable && disabled !== true,
     }"
