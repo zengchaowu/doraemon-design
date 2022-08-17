@@ -2,7 +2,7 @@
   <div
     v-if="preview && isEditing === false"
     class="flex items-center truncate min-w-0"
-    @dblclick="onDbclick"
+    @click="onDbclick"
   >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
@@ -13,7 +13,7 @@
   </div>
   <div v-else class="content" @click="onClick">
     <a-select
-      ref="select"
+      ref="input"
       class="flex-grow"
       :value="localValue?.split ? localValue?.split(',') : localValue"
       :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
@@ -63,7 +63,7 @@ export default {
           const result = await this.payload?.getOptions();
           this.options = result;
           this.state = "success";
-          open && this.$refs.select.$el.click();
+          open && this.$refs.input.$el.click();
         } catch (error) {
           console.log(error);
           this.state = "fail";

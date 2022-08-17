@@ -2,7 +2,7 @@
   <div
     v-if="preview && isEditing === false"
     class="flex truncate items-center min-w-0 h-8"
-    @dblclick="onDbclick"
+    @click="onDbclick"
   >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
@@ -13,11 +13,11 @@
   </div>
   <a-range-picker
     v-else
+    ref="input"
     :value="localValue?.split ? localValue?.split(',') : localValue"
     :disabled-date="payload?.disabledDate"
     value-format="YYYY-MM-DD"
     @change="onChange"
-    v-clickoutside="onClickoutside"
   />
 </template>
 <script>
@@ -27,6 +27,7 @@ export default {
   methods: {
     onChange(value) {
       this.localValue = value.join(",");
+      this.onClickoutside();
     },
     onClickoutside() {
       const value = this.localValue;

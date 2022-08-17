@@ -2,12 +2,13 @@
   <div
     v-if="preview && isEditing === false"
     class="flex truncate items-center min-w-0"
-    @dblclick="onDbclick"
+    @click="onDbclick"
   >
     <span class="truncate">{{ value }}</span>
   </div>
   <a-input-search
     v-else
+    ref="input"
     :value="localValue"
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"

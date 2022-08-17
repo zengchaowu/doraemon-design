@@ -2,7 +2,7 @@
   <div
     v-if="preview && isEditing === false"
     class="flex truncate items-center min-w-0"
-    @dblclick="onDbclick"
+    @click="onDbclick"
   >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
@@ -13,6 +13,7 @@
   </div>
   <a-select
     v-else
+    ref="input"
     :value="localValue?.split ? localValue?.split(',') : localValue"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
