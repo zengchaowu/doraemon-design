@@ -13,13 +13,13 @@
   </div>
   <a-date-picker
     v-else
-    :value="value"
+    :value="_value ?? value"
     :disabled="disabled"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     format="YYYY-MM-DD"
     style="height: fit-content"
-    @change="change"
-    v-clickoutside="onBlur"
+    @change="onChange"
+    v-clickoutside="onClickoutside"
   />
 </template>
 
@@ -28,8 +28,15 @@ import _interface from "../mixin/input.js";
 export default {
   mixins: [_interface],
   methods: {
-    change(_, value) {
+    onChange(_, value) {
+      this._value = value;
+    },
+    onClickoutside() {
+      const value = this._value;
+      this._value = undefined;
       this.$emit("update", value);
+
+      this.onBlur();
     },
   },
 };

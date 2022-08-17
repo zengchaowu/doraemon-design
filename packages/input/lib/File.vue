@@ -12,9 +12,9 @@
     type="button"
     class="truncate"
     @click="click"
-    v-clickoutside="onBlur"
+    v-clickoutside="onClickoutside"
   >
-    <span class="truncate">{{ value ? "已上传" : "选择文件" }}</span>
+    <span class="truncate">{{ _value ?? value ? "已上传" : "选择文件" }}</span>
     <input ref="input" type="file" class="hidden" @input="input" />
   </button>
 </template>

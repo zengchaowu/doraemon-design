@@ -11,16 +11,20 @@
       {{ payload?.options ? parseSelect(payload?.options, value) : value }}
     </a-tooltip>
   </div>
-  <div v-else class="content" @click="onClick" v-clickoutside="onBlur">
+  <div v-else class="content" @click="onClick" v-clickoutside="onClickoutside">
     <a-select
       ref="select"
       class="flex-grow"
-      :value="value?.split ? value?.split(',') : value"
+      :value="
+        (_value ?? value)?.split
+          ? (_value ?? value)?.split(',')
+          : _value ?? value
+      "
       :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
       :disabled="disabled"
       :allow-clear="true"
       :mode="payload?.mode"
-      @change="onSelect"
+      @change="onChange"
       :style="{ 'pointer-events': options ? undefined : 'none' }"
     >
       <a-select-option
@@ -70,14 +74,25 @@ export default {
         }
       }
     },
-    onSelect(value) {
+    onChange(value) {
+      this._value = this.payload.onSelect
+        ? value
+        : value?.length > 0 || value?.toString()?.length > 0
+        ? value?.join
+          ? value.join(",")
+          : value
+        : undefined;
+    },
+    onClickoutside() {
+      const value = this._value;
+      this._value = undefined;
       if (this.payload.onSelect) {
         this.payload.onSelect(value, this.options);
-      } else if (value?.length > 0 || value?.toString()?.length > 0) {
-        this.$emit("update", value?.join ? value.join(",") : value);
       } else {
-        this.$emit("update", undefined);
+        this.$emit("update", value);
       }
+
+      this.onBlur();
     },
   },
 };

@@ -13,11 +13,11 @@
   </div>
   <a-range-picker
     v-else
-    :value="value?.split(',')"
+    :value="(_value ?? value)?.split(',')"
     :disabled-date="payload?.disabledDate"
     value-format="YYYY-MM-DD"
-    @change="dateRangeChange"
-    v-clickoutside="onBlur"
+    @change="onChange"
+    v-clickoutside="onClickoutside"
   />
 </template>
 <script>
@@ -25,8 +25,15 @@ import _interface from "../mixin/input.js";
 export default {
   mixins: [_interface],
   methods: {
-    dateRangeChange(result) {
-      this.payload?.onChange && this.payload?.onChange(result);
+    onChange(value) {
+      this._value = value;
+    },
+    onClickoutside() {
+      const value = this._value;
+      this._value = undefined;
+      this.payload?.onChange && this.payload?.onChange(value);
+
+      this.onBlur();
     },
   },
 };

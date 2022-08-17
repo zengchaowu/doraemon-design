@@ -28,6 +28,7 @@ export default {
   data() {
     return {
       isEditing: false,
+      _value: undefined,
     };
   },
   methods: {

@@ -13,13 +13,17 @@
   </div>
   <a-week-picker
     v-else
-    :value="value?.split ? value?.split(',')[0] : value"
+    :value="
+      (_value ?? value)?.split
+        ? (_value ?? value)?.split(',')[0]
+        : _value ?? value
+    "
     :disabled="disabled"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled-date="payload?.disabledDate"
     style="height: fit-content"
-    @change="change"
-    v-clickoutside="onBlur"
+    @change="onChange"
+    v-clickoutside="onClickoutside"
   />
 </template>
 
@@ -28,16 +32,20 @@ import _interface from "../mixin/input.js";
 export default {
   mixins: [_interface],
   methods: {
-    change(date) {
-      this.$emit(
-        "update",
-        date
-          ? [
-              date.isoWeekday(1).format("YYYY-MM-DD"),
-              date.isoWeekday(7).format("YYYY-MM-DD"),
-            ].join(",")
-          : undefined
-      );
+    onChange(date) {
+      this._value = date
+        ? [
+            date.isoWeekday(1).format("YYYY-MM-DD"),
+            date.isoWeekday(7).format("YYYY-MM-DD"),
+          ].join(",")
+        : undefined;
+    },
+    onClickoutside() {
+      const value = this._value;
+      this._value = undefined;
+      this.$emit("update", value);
+
+      this.onBlur();
     },
   },
 };

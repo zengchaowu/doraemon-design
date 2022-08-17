@@ -8,11 +8,11 @@
   </div>
   <a-input-search
     v-else
-    :value="value"
+    :value="_value ?? value"
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
     @change="onChange"
-    v-clickoutside="onBlur"
+    v-clickoutside="onClickoutside"
   />
 </template>
 
@@ -22,7 +22,14 @@ export default {
   mixins: [_interface],
   methods: {
     onChange(value) {
+      this._value = value;
+    },
+    onClickoutside() {
+      const value = this._value;
+      this._value = undefined;
       this.$emit("update", value);
+
+      this.onBlur();
     },
   },
 };

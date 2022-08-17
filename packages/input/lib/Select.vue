@@ -13,13 +13,15 @@
   </div>
   <a-select
     v-else
-    :value="value?.split ? value?.split(',') : value"
+    :value="
+      (_value ?? value)?.split ? (_value ?? value)?.split(',') : _value ?? value
+    "
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
     :allow-clear="true"
     :mode="payload?.mode"
     @change="onChange"
-    v-clickoutside="onBlur"
+    v-clickoutside="onClickoutside"
   >
     <a-select-option
       v-for="(option, index) in payload?.options"
@@ -41,11 +43,19 @@ export default {
   methods: {
     parseSelect,
     onChange(option) {
-      if (option?.length > 0 || option?.toString()?.length > 0) {
-        this.$emit("update", option?.join ? option.join(",") : option);
-      } else {
-        this.$emit("update", undefined);
-      }
+      this._value =
+        option?.length > 0 || option?.toString()?.length > 0
+          ? option?.join
+            ? option.join(",")
+            : option
+          : undefined;
+    },
+    onClickoutside() {
+      const value = this._value;
+      this._value = undefined;
+      this.$emit("update", value);
+
+      this.onBlur();
     },
   },
 };

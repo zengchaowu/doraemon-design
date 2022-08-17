@@ -13,11 +13,11 @@
   </div>
   <a-select
     v-else
-    :value="value"
+    :value="_value ?? value"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
     @change="onChange"
-    v-clickoutside="onBlur"
+    v-clickoutside="onClickoutside"
   >
     <a-select-option
       v-for="(option, index) in payload?.options"
@@ -39,7 +39,14 @@ export default {
   methods: {
     parseSelect,
     onChange(option) {
-      this.$emit("update", option);
+      this._value = option;
+    },
+    onClickoutside() {
+      const value = this._value;
+      this._value = undefined;
+      this.$emit("update", value);
+
+      this.onBlur();
     },
   },
 };
