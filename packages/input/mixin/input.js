@@ -41,7 +41,11 @@ export default {
   },
   methods: {
     onDbclick() {
-      if (this.editable === true && this.preview === true) {
+      if (
+        this.editable === true &&
+        this.preview === true &&
+        this.disabled !== true
+      ) {
         this.isEditing = true;
       }
     },
