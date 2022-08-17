@@ -13,7 +13,7 @@
   </div>
   <a-date-picker
     v-else
-    :value="_value ?? value"
+    :value="localValue ?? value"
     :disabled="disabled"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     format="YYYY-MM-DD"
@@ -29,11 +29,11 @@ export default {
   mixins: [_interface],
   methods: {
     onChange(_, value) {
-      this._value = value;
+      this.localValue = value;
     },
     onClickoutside() {
-      const value = this._value;
-      this._value = undefined;
+      const value = this.localValue;
+      this.localValue = undefined;
       this.$emit("update", value);
 
       this.onBlur();

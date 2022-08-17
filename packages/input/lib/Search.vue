@@ -8,7 +8,7 @@
   </div>
   <a-input-search
     v-else
-    :value="_value ?? value"
+    :value="localValue ?? value"
     :placeholder="payload?.placeholder ?? '请输入' + (payload?.label ?? '')"
     :disabled="disabled"
     @change="onChange"
@@ -22,11 +22,11 @@ export default {
   mixins: [_interface],
   methods: {
     onChange(value) {
-      this._value = value;
+      this.localValue = value;
     },
     onClickoutside() {
-      const value = this._value;
-      this._value = undefined;
+      const value = this.localValue;
+      this.localValue = undefined;
       this.$emit("update", value);
 
       this.onBlur();

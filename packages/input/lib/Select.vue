@@ -14,7 +14,9 @@
   <a-select
     v-else
     :value="
-      (_value ?? value)?.split ? (_value ?? value)?.split(',') : _value ?? value
+      (localValue ?? value)?.split
+        ? (localValue ?? value)?.split(',')
+        : localValue ?? value
     "
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
     :disabled="disabled"
@@ -43,7 +45,7 @@ export default {
   methods: {
     parseSelect,
     onChange(option) {
-      this._value =
+      this.localValue =
         option?.length > 0 || option?.toString()?.length > 0
           ? option?.join
             ? option.join(",")
@@ -51,8 +53,8 @@ export default {
           : undefined;
     },
     onClickoutside() {
-      const value = this._value;
-      this._value = undefined;
+      const value = this.localValue;
+      this.localValue = undefined;
       this.$emit("update", value);
 
       this.onBlur();

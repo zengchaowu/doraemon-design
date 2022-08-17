@@ -13,7 +13,7 @@
   </div>
   <a-range-picker
     v-else
-    :value="(_value ?? value)?.split(',')"
+    :value="(localValue ?? value)?.split(',')"
     :disabled-date="payload?.disabledDate"
     value-format="YYYY-MM-DD"
     @change="onChange"
@@ -26,11 +26,11 @@ export default {
   mixins: [_interface],
   methods: {
     onChange(value) {
-      this._value = value;
+      this.localValue = value;
     },
     onClickoutside() {
-      const value = this._value;
-      this._value = undefined;
+      const value = this.localValue;
+      this.localValue = undefined;
       this.payload?.onChange && this.payload?.onChange(value);
 
       this.onBlur();

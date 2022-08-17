@@ -4,7 +4,7 @@
     v-clickoutside="onClickoutside"
   >
     <a-checkbox
-      :checked="_value ?? value"
+      :checked="localValue ?? value"
       :disabled="disabled"
       @change="onChange"
     >
@@ -19,11 +19,11 @@ export default {
   mixins: [_interface],
   methods: {
     onChange(event) {
-      this._value = event.target.checked;
+      this.localValue = event.target.checked;
     },
     onClickoutside() {
-      const value = this._value;
-      this._value = undefined;
+      const value = this.localValue;
+      this.localValue = undefined;
       this.$emit("update", value);
 
       this.onBlur();

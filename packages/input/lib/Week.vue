@@ -14,9 +14,9 @@
   <a-week-picker
     v-else
     :value="
-      (_value ?? value)?.split
-        ? (_value ?? value)?.split(',')[0]
-        : _value ?? value
+      (localValue ?? value)?.split
+        ? (localValue ?? value)?.split(',')[0]
+        : localValue ?? value
     "
     :disabled="disabled"
     :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
@@ -33,7 +33,7 @@ export default {
   mixins: [_interface],
   methods: {
     onChange(date) {
-      this._value = date
+      this.localValue = date
         ? [
             date.isoWeekday(1).format("YYYY-MM-DD"),
             date.isoWeekday(7).format("YYYY-MM-DD"),
@@ -41,8 +41,8 @@ export default {
         : undefined;
     },
     onClickoutside() {
-      const value = this._value;
-      this._value = undefined;
+      const value = this.localValue;
+      this.localValue = undefined;
       this.$emit("update", value);
 
       this.onBlur();

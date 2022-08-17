@@ -16,9 +16,9 @@
       ref="select"
       class="flex-grow"
       :value="
-        (_value ?? value)?.split
-          ? (_value ?? value)?.split(',')
-          : _value ?? value
+        (localValue ?? value)?.split
+          ? (localValue ?? value)?.split(',')
+          : localValue ?? value
       "
       :placeholder="payload?.placeholder ?? '请选择' + payload?.label"
       :disabled="disabled"
@@ -75,7 +75,7 @@ export default {
       }
     },
     onChange(value) {
-      this._value = this.payload.onSelect
+      this.localValue = this.payload.onSelect
         ? value
         : value?.length > 0 || value?.toString()?.length > 0
         ? value?.join
@@ -84,8 +84,8 @@ export default {
         : undefined;
     },
     onClickoutside() {
-      const value = this._value;
-      this._value = undefined;
+      const value = this.localValue;
+      this.localValue = undefined;
       if (this.payload.onSelect) {
         this.payload.onSelect(value, this.options);
       } else {
