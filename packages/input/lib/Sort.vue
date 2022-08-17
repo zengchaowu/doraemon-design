@@ -3,7 +3,7 @@
     v-if="preview && isEditing === false"
     class="flex truncate items-center min-w-0 border-1 border-transparent px-2 rounded-md"
     :class="{
-      'hover:border-border': editable,
+      'hover:border-border': editable && disabled !== true,
     }"
     @click="onDbclick"
   >
