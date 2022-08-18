@@ -9,9 +9,21 @@
   >
     <a-tooltip class="min-w-0 truncate">
       <template #title>
-        {{ payload?.options ? parseSelect(payload?.options, value) : value }}
+        {{
+          payload?.options
+            ? parseSelect(payload?.options, value)
+            : value?.join
+            ? value?.join(",")
+            : value
+        }}
       </template>
-      {{ payload?.options ? parseSelect(payload?.options, value) : value }}
+      {{
+        payload?.options
+          ? parseSelect(payload?.options, value)
+          : value?.join
+          ? value?.join(",")
+          : value
+      }}
     </a-tooltip>
   </div>
   <div v-else class="content" @click="onClick">
