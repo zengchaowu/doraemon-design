@@ -38,5 +38,13 @@ export default {
       this.onBlur();
     },
   },
+  mounted() {
+    if (
+      this.localValue === undefined &&
+      this.payload?.fillPlaceholder === true
+    ) {
+      this.localValue = this.payload?.placeholder;
+    }
+  },
 };
 </script>
