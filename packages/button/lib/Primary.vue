@@ -2,7 +2,7 @@
   <a-button
     type="primary"
     class="flex items-center"
-    @click="payload.onClick?.call()"
+    @click.stop="payload.onClick?.call()"
   >
     <span>
       {{ payload?.label }}

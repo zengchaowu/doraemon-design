@@ -1,5 +1,5 @@
 <template>
-  <a-button class="flex items-center" @click="payload.onClick?.call()">
+  <a-button class="flex items-center" @click.stop="payload.onClick?.call()">
     <span>
       {{ payload?.label }}
     </span>

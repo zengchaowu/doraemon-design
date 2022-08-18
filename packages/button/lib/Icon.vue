@@ -15,7 +15,7 @@
     v-else
     type="button"
     class="flex items-center gap-1"
-    @click="payload?.onClick?.call()"
+    @click.stop="payload?.onClick?.call()"
   >
     <div
       v-if="payload?.html"
