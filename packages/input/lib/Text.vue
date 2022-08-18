@@ -22,6 +22,7 @@
     :disabled="disabled"
     :allow-clear="true"
     @change="onChange"
+    @keyup.enter="onClickoutside"
     v-clickoutside="onClickoutside"
   />
 </template>
