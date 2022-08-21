@@ -21,6 +21,7 @@
     :disabled-date="payload?.disabledDate"
     value-format="YYYY-MM-DD"
     @change="onChange"
+    v-clickoutside="delayBlur"
   />
 </template>
 <script>

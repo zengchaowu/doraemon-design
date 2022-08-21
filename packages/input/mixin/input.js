@@ -49,6 +49,11 @@ export default {
         this.isEditing = true;
       }
     },
+    delayBlur() {
+      setTimeout(() => {
+        this.onBlur();
+      }, 100);
+    },
     onBlur() {
       if (this.isEditing === true) {
         this.isEditing = false;

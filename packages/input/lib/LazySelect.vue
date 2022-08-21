@@ -36,6 +36,7 @@
       :allow-clear="true"
       :mode="payload?.mode"
       @change="onChange"
+      v-clickoutside="delayBlur"
       :style="{ 'pointer-events': options ? undefined : 'none' }"
     >
       <a-select-option
