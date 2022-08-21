@@ -108,6 +108,13 @@ export default {
 
       this.onBlur();
     },
+    delayBlur() {
+      if (this.state === "success") {
+        setTimeout(() => {
+          this.onBlur();
+        }, 100);
+      }
+    },
   },
 };
 </script>
