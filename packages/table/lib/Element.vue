@@ -43,7 +43,9 @@
                 <component
                   v-else-if="column.type === 'custom'"
                   :is="column.component"
-                  :payload="column.payload(scope.row)"
+                  :payload="
+                    column.payload ? column.payload(scope.row) : undefined
+                  "
                 />
               </div>
             </template>
