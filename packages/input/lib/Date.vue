@@ -23,7 +23,6 @@
     format="YYYY-MM-DD"
     style="height: fit-content"
     @change="onChange"
-    v-clickoutside="delayBlur"
   />
 </template>
 
