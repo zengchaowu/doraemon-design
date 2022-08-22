@@ -51,6 +51,7 @@ export default {
     async upload(file) {
       this.status = "uploading";
       await this.payload?.upload(file);
+      this.status = "done";
     },
   },
 };
