@@ -1,5 +1,8 @@
 <template>
-  <a-dropdown v-if="payload?.subType === 'dropdown'">
+  <a-dropdown
+    v-if="payload?.subType === 'dropdown'"
+    :trigger="[payload?.trigger ?? 'hover']"
+  >
     <button type="button" class="flex items-center gap-1">
       <div
         v-if="payload?.html"
