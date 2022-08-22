@@ -15,7 +15,6 @@
     type="button"
     class="truncate"
     @click="click"
-    v-clickoutside="onClickoutside"
   >
     <span class="truncate">{{ localValue ? "已上传" : "选择文件" }}</span>
     <input ref="input" type="file" class="hidden" @input="input" />
@@ -49,26 +48,9 @@ export default {
     beforeUpload() {
       return true;
     },
-    upload(file) {
+    async upload(file) {
       this.status = "uploading";
-      const formData = new FormData();
-      formData.append("file", file);
-      console.log(this.$axios);
-      this.$axios({
-        method: "post",
-        url: "/api/oss/upload",
-        headers: {},
-        data: formData,
-      }).then((res) => {
-        const { code, data, msg } = res.data || {};
-        if (code === 0) {
-          this.status = "done";
-          this.$emit("update", data.url);
-        } else {
-          this.$message.error(msg);
-          this.status = "fail";
-        }
-      });
+      await this.payload?.upload(file);
     },
   },
 };
