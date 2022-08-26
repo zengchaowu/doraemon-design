@@ -36,15 +36,11 @@ export default {
   },
   methods: {
     onDragenter() {
-      console.log("dragenter");
       this.counter++;
       this.dragover = true;
     },
-    onDragover() {
-      console.log("dragover");
-    },
+    onDragover() {},
     onDragleave() {
-      console.log("dragleave");
       this.counter--;
       if (this.counter <= 0) {
         this.dragover = false;
