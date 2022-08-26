@@ -4,24 +4,30 @@
     @dragenter.prevent="onDragenter"
     @dragover.prevent="onDragover"
     @dragleave.prevent="onDragleave"
-    style="position: relative"
+    class="relative"
   >
     <slot />
     <div
       v-if="dragover"
-      style="
-        position: absolute;
-        inset: 0;
-        background-color: black;
-        opacity: 0.5;
-        pointer-events: none;
-      "
-    />
+      class="absolute inset-0 p-4 bg-white opacity-80 pointer-events-none"
+    >
+      <div
+        class="rounded-xl w-full h-full border-2px border-dashed border-light3 flex justify-center items-center"
+      >
+        <span>{{ payload?.title }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    payload: {
+      type: Object,
+      default: undefined,
+    },
+  },
   data() {
     return {
       counter: 0,
