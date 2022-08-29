@@ -4,6 +4,7 @@
       :current="models.local.page"
       :page-size="models.local.page_size"
       :total="store.count"
+      :show-total="(total) => `共 ${total} 条`"
       show-size-changer
       @change="onChange"
       @showSizeChange="onShowSizeChange"
