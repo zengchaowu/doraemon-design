@@ -40,6 +40,9 @@
                     "
                   />
                 </a-tooltip>
+                <div v-else-if="column.type === 'index'">
+                  <span>{{ scope.$index + 1 }}</span>
+                </div>
                 <component
                   v-else-if="column.type === 'custom'"
                   :is="column.component"
