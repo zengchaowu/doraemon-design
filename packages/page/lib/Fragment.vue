@@ -71,6 +71,7 @@ export default {
               this.data.load = result;
               this.state.load = "success";
             } catch (error) {
+              this.state.load = "reloadError";
               this.payload?.request?.handleError &&
                 this.payload.request.handleError(error);
             }
