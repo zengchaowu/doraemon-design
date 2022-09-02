@@ -7,7 +7,7 @@
       :class="tab.value === value ? 'text-primary' : 'text-gray-500'"
       @click="$emit('update', tab.value)"
     >
-      <span>{{ tab.label }}</span>
+      <span class="font-semibold">{{ tab.label }}</span>
     </button>
   </div>
 </template>

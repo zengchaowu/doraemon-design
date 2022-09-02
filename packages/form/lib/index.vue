@@ -3,7 +3,7 @@
     <div v-for="(section, i) in sections" :key="i" :class="appearance.section">
       <span class="flex items-center gap-2">
         <div class="w-2 h-5 rounded-sm bg-primary" />
-        <span class="text-lg">{{ section.title }}</span>
+        <span class="text-lg font-semibold">{{ section.title }}</span>
       </span>
       <div :class="section.class">
         <div v-for="(row, j) in section.rows" :class="appearance.row">
