@@ -3,7 +3,7 @@
     <slot />
     <TheStateLoading
       v-if="isLoading"
-      class="absolute inset-0 bg-light1 bg-opacity-30"
+      class="absolute inset-0 bg-light1 bg-opacity-5"
     />
   </div>
 </template>
