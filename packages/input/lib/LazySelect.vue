@@ -3,7 +3,7 @@
     v-if="preview && isEditing === false"
     class="flex items-center truncate min-w-0 border-1 border-transparent rounded-md"
     :class="{
-      'hover:border-border': editable && disabled !== true,
+      'hover:border-primary': editable && disabled !== true,
     }"
     @click="onDbclick"
   >
@@ -17,13 +17,15 @@
             : value
         }}
       </template>
-      {{
-        payload?.options
-          ? parseSelect(payload?.options, value)
-          : value?.join
-          ? value?.join(",")
-          : value
-      }}
+      <span class="px-2">
+        {{
+          payload?.options
+            ? parseSelect(payload?.options, value)
+            : value?.join
+            ? value?.join(",")
+            : value
+        }}
+      </span>
     </a-tooltip>
   </div>
   <div v-else class="content" @click="onClick">

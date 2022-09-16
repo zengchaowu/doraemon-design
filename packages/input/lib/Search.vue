@@ -3,11 +3,11 @@
     v-if="preview && isEditing === false"
     class="flex truncate items-center min-w-0 border-1 border-transparent rounded-md"
     :class="{
-      'hover:border-border': editable && disabled !== true,
+      'hover:border-primary': editable && disabled !== true,
     }"
     @click="onDbclick"
   >
-    <span class="truncate">{{ value }}</span>
+    <span class="truncate px-2">{{ value }}</span>
   </div>
   <a-input-search
     v-else

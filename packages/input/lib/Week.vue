@@ -3,7 +3,7 @@
     v-if="preview && isEditing === false"
     class="flex truncate items-center min-w-0 h-8 border-1 border-transparent rounded-md"
     :class="{
-      'hover:border-border': editable && disabled !== true,
+      'hover:border-primary': editable && disabled !== true,
     }"
     @click="onDbclick"
   >
@@ -11,7 +11,9 @@
       <template #title>
         {{ value }}
       </template>
-      {{ value }}
+      <span class="px-2">
+        {{ value }}
+      </span>
     </a-tooltip>
   </div>
   <a-week-picker

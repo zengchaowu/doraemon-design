@@ -3,11 +3,13 @@
     v-if="preview && isEditing === false"
     class="bg-gray-100 m-2 p-2 rounded-md whitespace-pre-wrap border-1 border-transparent rounded-md"
     :class="{
-      'hover:border-border': editable && disabled !== true,
+      'hover:border-primary': editable && disabled !== true,
     }"
     @click="onDbclick"
   >
-    <span>{{ value }}</span>
+    <span class="px-2">
+      {{ value }}
+    </span>
   </div>
   <a-textarea
     v-else
