@@ -8,24 +8,20 @@
     @click="onDbclick"
   >
     <a-tooltip class="min-w-0 truncate">
-      <template #title>
-        {{
-          payload?.options
-            ? parseSelect(payload?.options, value)
-            : value?.join
-            ? value?.join(",")
-            : value
-        }}
-      </template>
-      <span class="px-2">
-        {{
-          payload?.options
-            ? parseSelect(payload?.options, value)
-            : value?.join
-            ? value?.join(",")
-            : value
-        }}
-      </span>
+      <template #title>{{
+        payload?.options
+          ? parseSelect(payload?.options, value)
+          : value?.join
+          ? value?.join(",")
+          : value
+      }}</template>
+      <span class="px-2">{{
+        payload?.options
+          ? parseSelect(payload?.options, value)
+          : value?.join
+          ? value?.join(",")
+          : value
+      }}</span>
     </a-tooltip>
   </div>
   <div v-else class="content" @click="onClick">

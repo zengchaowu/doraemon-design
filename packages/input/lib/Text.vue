@@ -8,12 +8,8 @@
     @click="onDbclick"
   >
     <a-tooltip class="min-w-0 truncate">
-      <template #title>
-        {{ value }}
-      </template>
-      <span class="px-2">
-        {{ value }}
-      </span>
+      <template #title>{{ value }}</template>
+      <span class="px-2">{{ value }}</span>
     </a-tooltip>
   </div>
   <a-input

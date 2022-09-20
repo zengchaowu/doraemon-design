@@ -8,12 +8,8 @@
     @click="onDbclick"
   >
     <a-tooltip class="min-w-0 truncate">
-      <template #title>
-        {{ parseSelect(payload?.options, value) }}
-      </template>
-      <span class="px-2">
-        {{ parseSelect(payload?.options, value) }}
-      </span>
+      <template #title>{{ parseSelect(payload?.options, value) }}</template>
+      <span class="px-2">{{ parseSelect(payload?.options, value) }}</span>
     </a-tooltip>
   </div>
   <a-select

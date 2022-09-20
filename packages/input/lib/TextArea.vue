@@ -7,9 +7,7 @@
     }"
     @click="onDbclick"
   >
-    <span class="px-2">
-      {{ value }}
-    </span>
+    <span class="px-2">{{ value }}</span>
   </div>
   <a-textarea
     v-else
