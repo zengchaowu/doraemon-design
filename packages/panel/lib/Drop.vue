@@ -14,7 +14,7 @@
       <div
         class="rounded-xl w-full h-full border-2px border-dashed border-light3 flex justify-center items-center"
       >
-        <span>{{ payload?.title }}</span>
+        <span class="font-medium">{{ payload?.title }}</span>
       </div>
     </div>
   </div>
