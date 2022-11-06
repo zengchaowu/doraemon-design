@@ -30,7 +30,7 @@
     <div
       v-if="payload?.badge"
       class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"
-    ></div>
+    />
   </button>
 </template>
 
