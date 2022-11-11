@@ -6,7 +6,7 @@
     <button type="button" class="flex items-center gap-1">
       <div
         v-if="payload?.html"
-        class="w-5 h-5 fill-current pointer-events-none"
+        class="w-5 h-5 fill-current"
         v-html="payload.html"
       />
       <img v-if="payload?.src" class="w-5 h-5" :src="payload.src" />
