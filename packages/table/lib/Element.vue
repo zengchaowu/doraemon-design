@@ -40,6 +40,31 @@
                     "
                   />
                 </a-tooltip>
+                <a-tooltip
+                  v-else-if="column.type === 'link'"
+                  :class="appearance?.contentText"
+                >
+                  <template #title>
+                    <div
+                      class="whitespace-pre-wrap"
+                      v-html="
+                        column.display
+                          ? column.display(get(scope.row, column.value))
+                          : get(scope.row, column.value)
+                      "
+                    />
+                  </template>
+                  <button type="button" @click="globalThis.open(get(scope.row, column.value))">
+                    <div
+                      class="whitespace-pre-wrap line-clamp-2"
+                      v-html="
+                        column.display
+                          ? column.display(get(scope.row, column.value))
+                          : get(scope.row, column.value)
+                      "
+                    />
+                  </button>
+                </a-tooltip>
                 <div v-else-if="column.type === 'index'">
                   <span>{{ scope.$index + 1 }}</span>
                 </div>
