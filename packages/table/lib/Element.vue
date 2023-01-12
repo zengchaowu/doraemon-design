@@ -54,7 +54,7 @@
                       "
                     />
                   </template>
-                  <button type="button" @click="scope?.row?.onClick">
+                  <button type="button" @click="onOpen(get(scope.row, column.value))">
                     <div
                       class="whitespace-pre-wrap line-clamp-2"
                       v-html="
@@ -103,6 +103,9 @@ export default {
   methods: {
     get,
     handleRowClick() {},
+    onOpen(url) {
+      globalThis.open(url)
+    }
   },
 };
 </script>
