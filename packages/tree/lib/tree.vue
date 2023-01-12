@@ -35,6 +35,11 @@
         <span v-if="payload?.title" id="title" class="min-w-0 truncate">
           {{ payload?.title }}
         </span>
+        <span
+          v-if="payload?.unreadCount > 0"
+          class="flex-none w-2 h-2 rounded-full"
+          style="background-color: red"
+        />
       </div>
       <div
         v-if="payload?.children"
