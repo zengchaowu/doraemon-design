@@ -54,7 +54,7 @@
                       "
                     />
                   </template>
-                  <button type="button" @click="globalThis.open(get(scope.row, column.value))">
+                  <button type="button" @click="scope?.row?.onClick">
                     <div
                       class="whitespace-pre-wrap line-clamp-2"
                       v-html="
