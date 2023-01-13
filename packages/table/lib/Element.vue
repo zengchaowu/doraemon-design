@@ -56,7 +56,7 @@
                   </template>
                   <button type="button" @click="onOpen(get(scope.row, column.value))">
                     <div
-                      class="whitespace-pre-wrap line-clamp-2"
+                      class="min-w-0 truncate hover:text-primary"
                       v-html="
                         column.display
                           ? column.display(get(scope.row, column.value))
