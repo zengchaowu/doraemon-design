@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="preview && isEditing === false"
-    class="flex truncate items-center min-w-0 border-1 border-transparent rounded-md"
+    class="flex truncate items-center min-w-0 border-2 border-transparent rounded-md"
     :class="{
       'hover:border-primary': editable && disabled !== true,
     }"
